@@ -8,21 +8,21 @@ import Company from "./Setting/Company.jsx";
 
 const Collasp = () => {
   return (
-    <Container fluid>
-      <Card css={{ $$cardColor: "$colors$primary" }}>
-        <Card.Body>
-          <Row justify="center" align="center">
-            <Grid.Container fluid gap={2}>
-              <Grid>
+    <Container fluid style={{width:'100%'}}>
+      <Card css={{ $$cardColor: "$colors$primary",width:'100%' }}>
+        <Card.Body style={{width:'100%'}}>
+          <Row justify="center" align="center" style={{width:'100%'}}>
+            <Grid.Container fluid gap={2} style={{width:'100%'}}>
+              <Grid style={{width:'100%'}}>
                 <Collapse.Group shadow>
                   <Collapse title="CompanyEdit" arrowIcon={<AnchorIcon />}>
-              <Company/>
+                    <Company />
                   </Collapse>
                   <Collapse title="Setting Payment" arrowIcon={<MoonIcon />}>
-                   <Settingpaymeny/>
+                    <Settingpaymeny />
                   </Collapse>
                   <Collapse title="Sun" arrowIcon={<SunIcon />}>
-             {/*       <Thankyou/> */}
+                    {/*       <Thankyou/> */}
                   </Collapse>
                 </Collapse.Group>
               </Grid>

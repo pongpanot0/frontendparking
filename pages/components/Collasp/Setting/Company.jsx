@@ -9,6 +9,7 @@ import {
   Input,
   Button,
 } from "@nextui-org/react";
+import { settingCompany } from "../../../api/setting";
 const Company = () => {
   const [company_name, setcompany_name] = React.useState("");
   const [company_prayerid, setcompany_prayerid] = React.useState("");
@@ -28,8 +29,8 @@ const Company = () => {
         company_prayerid: company_prayerid,
       })
       .then((res) => {
-     
-        getData()
+        console.log(res);
+        getData();
       })
       .catch((err) => {
         console.log(err);
@@ -37,8 +38,7 @@ const Company = () => {
   };
   const getData = () => {
     const company_id = localStorage.getItem("company_id");
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/company/get/${company_id}`)
+    settingCompany(company_id)
       .then((res) => {
         setcompany_name(res.data.data[0].company_name);
         setcompany_prayerid(res.data.data[0].company_prayerid);
