@@ -93,7 +93,6 @@ const Settingpaymeny = () => {
           </TableCell>
           <Forward />
           <TableCell align="right"> {row.ValueCharge} บาท</TableCell>
-
           <TableCell align="right">
             <Button color="primary" auto>
               แก้ไข

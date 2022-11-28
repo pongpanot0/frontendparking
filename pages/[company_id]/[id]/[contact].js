@@ -7,28 +7,29 @@ import prompt from "../../../Img/prompt.png";
 import wallet from "../../../Img/wallet.png";
 import React, { useState } from "react";
 import moment from "moment";
-import 'moment/locale/th'
+import "moment/locale/th";
 const Payment = () => {
   const router = useRouter();
   const [date, setDate] = React.useState([]);
   const [qrcode, setQrcode] = React.useState([]);
-  const [list, setList] = React.useState([]);
   const { company_id } = router.query;
   const { id } = router.query;
   const { contact } = router.query;
+  const [sum, setSum] = React.useState([]);
   React.useEffect(() => {
-    if (!id && !company_id && !contact) {
+    if (!id && !company_id && !contact && !sum) {
       return;
     }
-    moment.locale('th')
+    moment.locale("th");
     getdata();
-  }, [id, company_id]);
+  }, [id, company_id, contact,sum]);
 
   const getdata = async () => {
     await getPromtpay(id, company_id)
       .then((row) => {
         setQrcode(row.data.data);
         setDate(row.data.resbody[0]["parking_start"]);
+        setSum(row.data.sum);
       })
       .catch((err) => {
         console.log(err);
@@ -37,16 +38,21 @@ const Payment = () => {
   const ShowData = () => {
     if (contact == 1) {
       return (
-        <> 
+        <>
           <Card>
             <Card.Body>
               <Row justify="center" align="center">
                 <Grid.Container gap={2} justify="center">
-                  <h1>Promtpay</h1>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      Promtpay
+                    </Text>
+                  </Grid>
+
                   <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                  {moment(date).format("DD/MM/YYYY, HH:mm")}
+                    {moment(date).format("DD/MM/YYYY, HH:mm")}
                   </Text>
-                  <Grid xs={12} alignContent="center">
+                  <Grid xs={12} sm={12} alignContent="center">
                     <Image
                       src={prompt}
                       alt="Picture of the author"
@@ -62,17 +68,17 @@ const Payment = () => {
                       height={300}
                     />
                   </Grid>
-                  <Grid xs={12}></Grid>
                   <Grid xs={12}>
-                    {/*  <Button
-                      bordered
-                      shadow
-                      color="success"
-                      style={{ width: "100%" }}
+                    {" "}
+                    <Text
+                      blockquote
+                      size="$2xl"
+                      style={{ textAlign: "center" }}
                     >
-                      เข้าสู่ช่องทางการชำระเงิน
-                    </Button> */}
+                      จำนวนเงิน {sum}
+                    </Text>
                   </Grid>
+                  <Grid xs={12}></Grid>
                 </Grid.Container>
               </Row>
             </Card.Body>
@@ -87,9 +93,14 @@ const Payment = () => {
             <Card.Body>
               <Row justify="center" align="center">
                 <Grid.Container gap={2} justify="center">
-                  <h1>MobileBanking</h1>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      MobileBanking
+                    </Text>
+                  </Grid>
+
                   <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                  {moment(date).format("DD/MM/YYYY, HH:mm")}
+                    {moment(date).format("DD/MM/YYYY, HH:mm")}
                   </Text>
                   <Grid xs={12} sm={12} alignContent="center">
                     <Image
@@ -116,14 +127,13 @@ const Payment = () => {
                     />
                   </Grid>
                   <Grid xs={12}>
-                    {/*  <Button
-                      bordered
-                      shadow
-                      color="success"
-                      style={{ width: "100%" }}
+                    <Text
+                      blockquote
+                      size="$2xl"
+                      style={{ textAlign: "center" }}
                     >
-                      เข้าสู่ช่องทางการชำระเงิน
-                    </Button> */}
+                      จำนวนเงิน {sum}
+                    </Text>
                   </Grid>
                 </Grid.Container>
               </Row>
@@ -139,9 +149,14 @@ const Payment = () => {
             <Card.Body>
               <Row justify="center" align="center">
                 <Grid.Container gap={2} justify="center">
-                  <h1>TrueWallet</h1>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      TrueWallet
+                    </Text>
+                  </Grid>
+
                   <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                  {moment(date).format("DD/MM/YYYY, HH:mm")}
+                    {moment(date).format("DD/MM/YYYY, HH:mm")}
                   </Text>
                   <Grid xs={12} sm={12} alignContent="center">
                     {" "}
@@ -160,16 +175,15 @@ const Payment = () => {
                       height={300}
                     />
                   </Grid>
-                  <Grid xs={12}></Grid>
                   <Grid xs={12}>
-                    {/*  <Button
-                      bordered
-                      shadow
-                      color="success"
-                      style={{ width: "100%" }}
+                    {" "}
+                    <Text
+                      blockquote
+                      size="$2xl"
+                      style={{ textAlign: "center" }}
                     >
-                      เข้าสู่ช่องทางการชำระเงิน
-                    </Button> */}
+                      จำนวนเงิน {sum}
+                    </Text>
                   </Grid>
                 </Grid.Container>
               </Row>

@@ -5,15 +5,17 @@ import { MoonIcon } from "./MoonIcon";
 import { AnchorIcon } from "./AnchorIcon";
 import Settingpaymeny from "./Setting/Settingpaymeny.jsx";
 import Company from "./Setting/Company.jsx";
-
+import Thankyou from "../../Helpers/Thankyou";
+import Settingways from "./Setting/Settingways.jsx";
+import SettingwaysTable from "./Setting/SettingwaysTable.jsx";
 const Collasp = () => {
   return (
-    <Container fluid style={{width:'100%'}}>
-      <Card css={{ $$cardColor: "$colors$primary",width:'100%' }}>
-        <Card.Body style={{width:'100%'}}>
-          <Row justify="center" align="center" style={{width:'100%'}}>
-            <Grid.Container fluid gap={2} style={{width:'100%'}}>
-              <Grid style={{width:'100%'}}>
+    <Container fluid style={{ width: "100%" }}>
+      <Card css={{ $$cardColor: "$colors$primary", width: "100%" }}>
+        <Card.Body style={{ width: "100%" }}>
+          <Row justify="center" align="center" style={{ width: "100%" }}>
+            <Grid.Container fluid gap={2} style={{ width: "100%" }}>
+              <Grid style={{ width: "100%" }}>
                 <Collapse.Group shadow>
                   <Collapse title="CompanyEdit" arrowIcon={<AnchorIcon />}>
                     <Company />
@@ -21,8 +23,12 @@ const Collasp = () => {
                   <Collapse title="Setting Payment" arrowIcon={<MoonIcon />}>
                     <Settingpaymeny />
                   </Collapse>
-                  <Collapse title="Sun" arrowIcon={<SunIcon />}>
-                    {/*       <Thankyou/> */}
+                  <Collapse
+                    title="ตั้งค่า ช่องทางการชำระเงิน"
+                    arrowIcon={<SunIcon />}
+                  >
+                    <SettingwaysTable/>
+                   {/*  <Settingways /> */}
                   </Collapse>
                 </Collapse.Group>
               </Grid>
