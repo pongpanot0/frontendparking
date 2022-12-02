@@ -1,13 +1,26 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { CssBaseline } from "@nextui-org/react";
-
+import nextI18NextConfig from "../next-i18next.config.js";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 class MyDocument extends Document {
+  static async getStaticProps({ locale }) {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ["common", "footer"])),
+        nextI18NextConfig,
+        // Will be passed to the page component as props
+      },
+    };
+  }
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
+
     return {
       ...initialProps,
       styles: React.Children.toArray([initialProps.styles]),
+
+      // Will be passed to the page component as props
     };
   }
 

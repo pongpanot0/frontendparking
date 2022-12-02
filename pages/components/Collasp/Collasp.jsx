@@ -27,8 +27,8 @@ const Collasp = () => {
                     title="ตั้งค่า ช่องทางการชำระเงิน"
                     arrowIcon={<SunIcon />}
                   >
-                    <SettingwaysTable/>
-                   {/*  <Settingways /> */}
+                    <SettingwaysTable />
+                 
                   </Collapse>
                 </Collapse.Group>
               </Grid>

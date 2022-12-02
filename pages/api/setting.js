@@ -42,12 +42,27 @@ export const createChanel = async (
     chanel_id: chanel_id,
   });
 
-  
 export const getChanel = async () =>
-await axios.get(
-  process.env.NEXT_PUBLIC_API_URL + "/getMasterChanel");
+  await axios.get(process.env.NEXT_PUBLIC_API_URL + "/getMasterChanel");
 
+export const getSettingwaysPayments = async (id) =>
+  await axios.get(process.env.NEXT_PUBLIC_API_URL + "/getpaymentsways/" + id);
 
-  export const getSettingwaysPayments = async (id) =>
+export const uploadImg = async (value) =>
+  await axios.post(process.env.NEXT_PUBLIC_API_URL + "/upload", {
+    value: value,
+  });
+
+export const updateCompany = async (company_id, company_name, company_pic) =>
+  await axios.post(
+    process.env.NEXT_PUBLIC_API_URL + "/company/update/" + company_id,
+    {
+      company_name: company_name,
+      company_pic: company_pic,
+    }
+  );
+
+export const getImage = async (company_id) =>
   await axios.get(
-    process.env.NEXT_PUBLIC_API_URL + "/getpaymentsways/" + id);
+    process.env.NEXT_PUBLIC_API_URL + "/display/" + company_id
+  );

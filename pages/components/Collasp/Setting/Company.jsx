@@ -8,40 +8,65 @@ import {
   Grid,
   Input,
   Button,
+  Spacer,
 } from "@nextui-org/react";
-import { settingCompany } from "../../../api/setting";
+import {
+  getImage,
+  settingCompany,
+  updateCompany,
+  uploadImg,
+} from "../../../api/setting";
 const Company = () => {
   const [company_name, setcompany_name] = React.useState("");
-  const [company_prayerid, setcompany_prayerid] = React.useState("");
-  console.log(company_name);
+  const [companyPic, setCompanyPic] = React.useState("");
   React.useEffect(() => {
+    if (companyPic) {
+      return;
+    }
     getData();
-  }, []);
+  }, [companyPic]);
   const [disabled, setDisabled] = React.useState(true);
   const onEdit = () => {
     setDisabled(!disabled);
   };
-  const Edidata = () => {
+  const [image, setImage] = React.useState(null);
+
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImage(i);
+      setCompanyPic(URL.createObjectURL(i));
+    }
+  };
+
+  const Edidata = async () => {
+    const body = new FormData();
+    body.append("photo", image);
     const company_id = localStorage.getItem("company_id");
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/company/update/${company_id}`, {
-        company_name: company_name,
-        company_prayerid: company_prayerid,
-      })
-      .then((res) => {
-        console.log(res);
-        getData();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+      data: body,
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((res) => {
+      updateCompany(company_id, company_name, res.data)
+        .then((res) => {
+          getData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   };
   const getData = () => {
     const company_id = localStorage.getItem("company_id");
     settingCompany(company_id)
       .then((res) => {
         setcompany_name(res.data.data[0].company_name);
-        setcompany_prayerid(res.data.data[0].company_prayerid);
+        setCompanyPic(
+          `${process.env.NEXT_PUBLIC_API_URL}/display/${res.data.data[0].company_pic}`
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -53,7 +78,7 @@ const Company = () => {
         <Card.Body>
           <Row justify="center" align="center">
             <Grid.Container gap={2} justify="center">
-              <Grid xs={6}>
+              <Grid xs={12}>
                 <Input
                   clearable
                   value={company_name}
@@ -67,15 +92,16 @@ const Company = () => {
                 />
               </Grid>
               <Grid xs={6}>
+                <img src={companyPic} width="500" height="200"></img>
+              </Grid>
+              <Grid xs={6}>
                 <Input
                   clearable
-                  value={company_prayerid}
-                  label="company_prayerid"
+                  label="UploadPic"
                   width="100%"
-                  onChange={(e) => {
-                    setcompany_prayerid(e.target.value);
-                  }}
+                  onChange={uploadToClient}
                   placeholder="Name"
+                  type={"file"}
                   disabled={disabled}
                 />
               </Grid>

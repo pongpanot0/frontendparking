@@ -1,0 +1,9 @@
+{
+
+    "title":"00",
+
+  "Welcome to React": "DE  **** Welcome to React and react-i18next",
+  "description": {
+    "part2": "DE  **** some description"
+  }
+}

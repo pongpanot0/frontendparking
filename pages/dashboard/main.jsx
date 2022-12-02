@@ -1,37 +1,25 @@
 import React from "react";
 import { Container, Card, Row, Text, Grid } from "@nextui-org/react";
-import Login from "../components/Login/Login";
+
+import Line from "../components/Chart/Line";
+import Area from "../components/Chart/Area";
+import { useTranslation } from "next-i18next";
+import LocaleSwitcher from "../../components/language-switcher";
+
 const Main = () => {
-  const MockItem = ({ text }) => {
-    return (
-      <Card
-        css={{
-          h: "$24",
-         
-        }}
-      >
-        <Card.Body>
-          <Text h6 size={15} color="white" css={{ mt: 0 }}>
-            {text}
-          </Text>
-        </Card.Body>
-      </Card>
-    );
-  };
+  const { t } = useTranslation("common");
   return (
     <Container fluid>
-      <Card >
+      <Card>
         <Card.Body>
           <Row justify="center" align="center">
             <Grid.Container gap={2} justify="center">
-              <Grid xs={4}>
-                <MockItem text="1 of 3" />
+              <Grid xs={12} sm={4}>
+                <Line />
               </Grid>
-              <Grid xs={4}>
-               
-              </Grid>
-              <Grid xs={4}>
-                <MockItem text="3 of 3" />
+              <Grid xs={4}></Grid>
+              <Grid xs={12} sm={4}>
+                <Area />
               </Grid>
             </Grid.Container>
           </Row>

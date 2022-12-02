@@ -45,6 +45,7 @@ const Settingpaymeny = () => {
   };
   const ShowTable = () => {
     return setting.map((row) => {
+      
       const Forward = () => {
         if (row.IsForwordRate == "true") {
           return (
@@ -54,9 +55,7 @@ const Settingpaymeny = () => {
               </TableCell>
               <TableCell align="right">
                 {" "}
-                <Text visible h5>
-                  
-                </Text>
+                <Text visible h5></Text>
               </TableCell>
             </>
           );
@@ -75,6 +74,7 @@ const Settingpaymeny = () => {
           );
         }
       };
+
       return (
         <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
           <TableCell component="th" scope="row">

@@ -16,13 +16,14 @@ const Payment = () => {
   const { id } = router.query;
   const { contact } = router.query;
   const [sum, setSum] = React.useState([]);
+  const [end, setEnd] = React.useState([]);
   React.useEffect(() => {
     if (!id && !company_id && !contact && !sum) {
       return;
     }
     moment.locale("th");
     getdata();
-  }, [id, company_id, contact,sum]);
+  }, [id, company_id, contact, sum]);
 
   const getdata = async () => {
     await getPromtpay(id, company_id)
@@ -30,6 +31,7 @@ const Payment = () => {
         setQrcode(row.data.data);
         setDate(row.data.resbody[0]["parking_start"]);
         setSum(row.data.sum);
+        setEnd(res.data.resbody[0]["parking_end"]);
       })
       .catch((err) => {
         console.log(err);
@@ -45,13 +47,34 @@ const Payment = () => {
                 <Grid.Container gap={2} justify="center">
                   <Grid xs={12} sm={12}>
                     <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                      Promtpay
+            
+                   Promtpay
+                    
+                    </Text>
+                  </Grid>
+                  
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      เวลาเข้า {moment(date).format("DD/MM/YYYY, HH:mm")}
+                    </Text>
+                  </Grid>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      เวลาออก {moment(end).format("DD/MM/YYYY, HH:mm")}
                     </Text>
                   </Grid>
 
-                  <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                    {moment(date).format("DD/MM/YYYY, HH:mm")}
-                  </Text>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      ป้ายทะเบียน
+                    </Text>
+                  </Grid>
+                  <Grid xs={12}>
+                    {" "}
+                    <Text size="$2xl" style={{ textAlign: "center" }}>
+                      ค่าบริการ {sum}
+                    </Text>
+                  </Grid>
                   <Grid xs={12} sm={12} alignContent="center">
                     <Image
                       src={prompt}
@@ -68,17 +91,6 @@ const Payment = () => {
                       height={300}
                     />
                   </Grid>
-                  <Grid xs={12}>
-                    {" "}
-                    <Text
-                      blockquote
-                      size="$2xl"
-                      style={{ textAlign: "center" }}
-                    >
-                      จำนวนเงิน {sum}
-                    </Text>
-                  </Grid>
-                  <Grid xs={12}></Grid>
                 </Grid.Container>
               </Row>
             </Card.Body>
@@ -95,13 +107,32 @@ const Payment = () => {
                 <Grid.Container gap={2} justify="center">
                   <Grid xs={12} sm={12}>
                     <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                      MobileBanking
+                      Promtpay
+                    </Text>
+                  </Grid>
+                 
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      เวลาเข้า {moment(date).format("DD/MM/YYYY, HH:mm")}
+                    </Text>
+                  </Grid>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      เวลาออก {moment(end).format("DD/MM/YYYY, HH:mm")}
                     </Text>
                   </Grid>
 
-                  <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                    {moment(date).format("DD/MM/YYYY, HH:mm")}
-                  </Text>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      ป้ายทะเบียน
+                    </Text>
+                  </Grid>
+                  <Grid xs={12}>
+                    {" "}
+                    <Text size="$2xl" style={{ textAlign: "center" }}>
+                      ค่าบริการ {sum}
+                    </Text>
+                  </Grid>
                   <Grid xs={12} sm={12} alignContent="center">
                     <Image
                       src={prompt}
@@ -118,23 +149,6 @@ const Payment = () => {
                       height={300}
                     />
                   </Grid>
-                  <Grid xs={12}>
-                    <Image
-                      src={prompt}
-                      alt="Picture of the author"
-                      width={500}
-                      height={125}
-                    />
-                  </Grid>
-                  <Grid xs={12}>
-                    <Text
-                      blockquote
-                      size="$2xl"
-                      style={{ textAlign: "center" }}
-                    >
-                      จำนวนเงิน {sum}
-                    </Text>
-                  </Grid>
                 </Grid.Container>
               </Row>
             </Card.Body>
@@ -149,15 +163,34 @@ const Payment = () => {
             <Card.Body>
               <Row justify="center" align="center">
                 <Grid.Container gap={2} justify="center">
+                <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      TrueMoneyWallet
+                    </Text>
+                  </Grid>
+                  
                   <Grid xs={12} sm={12}>
                     <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                      TrueWallet
+                      เวลาเข้า {moment(date).format("DD/MM/YYYY, HH:mm")}
+                    </Text>
+                  </Grid>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      เวลาออก {moment(end).format("DD/MM/YYYY, HH:mm")}
                     </Text>
                   </Grid>
 
-                  <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
-                    {moment(date).format("DD/MM/YYYY, HH:mm")}
-                  </Text>
+                  <Grid xs={12} sm={12}>
+                    <Text size="$2xl" as={"p"} style={{ textAlign: "center" }}>
+                      ป้ายทะเบียน
+                    </Text>
+                  </Grid>
+                  <Grid xs={12}>
+                    {" "}
+                    <Text size="$2xl" style={{ textAlign: "center" }}>
+                      ค่าบริการ {sum}
+                    </Text>
+                  </Grid>
                   <Grid xs={12} sm={12} alignContent="center">
                     {" "}
                     <Image
@@ -175,16 +208,7 @@ const Payment = () => {
                       height={300}
                     />
                   </Grid>
-                  <Grid xs={12}>
-                    {" "}
-                    <Text
-                      blockquote
-                      size="$2xl"
-                      style={{ textAlign: "center" }}
-                    >
-                      จำนวนเงิน {sum}
-                    </Text>
-                  </Grid>
+                
                 </Grid.Container>
               </Row>
             </Card.Body>

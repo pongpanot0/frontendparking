@@ -32,6 +32,7 @@ const Settingways = () => {
   const getData = () => {
     getChanel()
       .then((res) => {
+        console.log(res.data.data);
         setchanel_id(res.data.data);
       })
       .catch((err) => {
@@ -60,13 +61,13 @@ const Settingways = () => {
     setAge(event.target.value);
   };
   const map = chanel_id.map((row) => {
+    console.log(row);
     return <MenuItem value={row.chanel_id}>{row.chanel_name}</MenuItem>;
   });
 
   return (
     <>
       <Container fluid>
-        <form>
         <Card>
           <Card.Body>
             <Row justify="center" align="center">
@@ -136,7 +137,6 @@ const Settingways = () => {
             </Row>
           </Card.Body>
         </Card>
-        </form>
       </Container>
     </>
   );
