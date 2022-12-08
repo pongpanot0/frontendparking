@@ -3,12 +3,12 @@ import {
   Input,
   Spacer,
   Grid,
-  Button,
   Checkbox,
   Tooltip,
   Text,
   Modal,
   Row,
+
 } from "@nextui-org/react";
 import TextField from "@mui/material/TextField";
 import Table from "@mui/material/Table";
@@ -18,7 +18,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import  Button  from "@mui/material/Button";
 import Addsettingpayment from "./Addsettingpayment";
 import { Getsetting } from "../../../api/setting";
 
@@ -45,7 +45,6 @@ const Settingpaymeny = () => {
   };
   const ShowTable = () => {
     return setting.map((row) => {
-      
       const Forward = () => {
         if (row.IsForwordRate == "true") {
           return (
@@ -94,7 +93,7 @@ const Settingpaymeny = () => {
           <Forward />
           <TableCell align="right"> {row.ValueCharge} บาท</TableCell>
           <TableCell align="right">
-            <Button color="primary" auto>
+            <Button variant="contained" color="primary" >
               แก้ไข
             </Button>
           </TableCell>
@@ -106,7 +105,7 @@ const Settingpaymeny = () => {
   return (
     <>
       <Button
-        color="primary"
+      variant="contained"
         className="btn btn-outline-success "
         onClick={handler}
       >

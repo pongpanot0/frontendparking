@@ -7,7 +7,7 @@ import {
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarExport,
-  GridToolbarFilterButton
+  GridToolbarFilterButton,
 } from "@mui/x-data-grid";
 
 import { Button, Text, Input, Row, Checkbox, Link } from "@nextui-org/react";
@@ -37,23 +37,22 @@ const SettingwaysTable = () => {
     {
       field: "chanel_payments_id",
       headerName: "chanel_payments_id",
-      width: 200,
+      width: 300,
     },
     {
       field: "chanel_payments_name",
       headerName: "chanel_payments_name",
-      width: 200,
+      width: 300,
     },
     {
       field: "chanel_payments_detail",
       headerName: "chanel_payments_detail",
-      width: 200,
+      width: 300,
     },
     {
-      field: "chanel_id",
-      headerName: "chanel_id",
-      type: "number",
-      width: 200,
+      field: "chanel_name",
+      headerName: "chanel_name",
+      width: 300,
     },
   ];
   const [open, setOpen] = React.useState(false);
@@ -70,10 +69,10 @@ const SettingwaysTable = () => {
         console.log(err);
       });
   };
-  function CustomToolbar({setFilterButtonEl }) {
+  function CustomToolbar({ setFilterButtonEl }) {
     return (
       <GridToolbarContainer>
-        <GridToolbarColumnsButton/>
+        <GridToolbarColumnsButton />
         <GridToolbarFilterButton ref={setFilterButtonEl} />
       </GridToolbarContainer>
     );
@@ -83,6 +82,7 @@ const SettingwaysTable = () => {
       <Button auto shadow onClick={handleOpen}>
         Open modal
       </Button>
+
       <Modal
         open={open}
         onClose={handleClose}

@@ -1,32 +1,64 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import moment from "moment";
+import { getCounthLogs } from "../../api/parking";
+import { getTheme } from "../../api/theme";
 const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
+
 const Line = () => {
+  const [getCounth, setgetCounth] = React.useState([]);
+  const [primary, setPrimary] = React.useState("#1976d2");
+  React.useEffect(() => {
+    if (!primary) {
+      return;
+    }
+    getColor();
+    getData();
+  }, [primary]);
+  const getColor = () => {
+    const id = localStorage.getItem("company_id");
+    getTheme(id).then((res) => {
+      setPrimary(res.data.data[0].paimaryButton);
+    });
+  };
+  const getData = () => {
+    const id = localStorage.getItem("company_id");
+    getCounthLogs(id)
+      .then((row) => {
+        setgetCounth(row.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const cate = getCounth.map((row) =>
+    moment(row._id, "yyyy-MM").format("MMMM yy")
+  );
+  const data = getCounth.map((row) => row.count);
   const state = {
     options: {
       chart: {
         id: "basic-bar",
       },
       xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+        categories: cate,
+      },
+      fill: {
+        colors: primary,
       },
     },
+
     series: [
       {
         name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 70, 91],
+        data: data,
       },
     ],
   };
 
   return (
-    <div className="mixed-chart">
-      <ApexCharts
-        options={state.options}
-        series={state.series}
-        type="bar"
-        
-      />
+    <div className="mixed-chart" style={{ width: "100%" }}>
+      <ApexCharts options={state.options} series={state.series} type="bar" />
     </div>
   );
 };

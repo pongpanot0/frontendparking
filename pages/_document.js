@@ -3,8 +3,10 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import { CssBaseline } from "@nextui-org/react";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 class MyDocument extends Document {
   static async getStaticProps({ locale }) {
+   
     return {
       props: {
         ...(await serverSideTranslations(locale, ["common", "footer"])),
@@ -25,6 +27,7 @@ class MyDocument extends Document {
   }
 
   render() {
+
     return (
       <Html lang="en">
         <Head>
@@ -33,7 +36,9 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
-          <Main />
+         
+            <Main />
+         
           <NextScript />
         </body>
       </Html>

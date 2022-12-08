@@ -6,20 +6,19 @@ import Bank from "../../../Img/bank.png";
 import truewallet from "../../../Img/truewallet.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 const Paymentways = () => {
   const router = useRouter();
   const [click, setClick] = React.useState(1);
-  console.log(click);
   const { pay } = router.query;
   const { payid } = router.query;
-  console.log(pay);
   const onChangpage = (e) => {
-
     router.push(`/${pay}/${payid}/${click}`);
   };
   const onClick = (e) => {
     setClick(e);
   };
+ 
   return (
     <Grid.Container gap={2} justify="center">
       <Grid xs={12} sm={12}>

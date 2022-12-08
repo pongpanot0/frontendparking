@@ -8,6 +8,7 @@ import Company from "./Setting/Company.jsx";
 import Thankyou from "../../Helpers/Thankyou";
 import Settingways from "./Setting/Settingways.jsx";
 import SettingwaysTable from "./Setting/SettingwaysTable.jsx";
+import Thememeindex from "../Theme/Thememeindex.jsx";
 const Collasp = () => {
   return (
     <Container fluid style={{ width: "100%" }}>
@@ -28,7 +29,9 @@ const Collasp = () => {
                     arrowIcon={<SunIcon />}
                   >
                     <SettingwaysTable />
-                 
+                  </Collapse>
+                  <Collapse title="ตั้งค่าธีมการใช้งาน" arrowIcon={<SunIcon />}>
+                    <Thememeindex />
                   </Collapse>
                 </Collapse.Group>
               </Grid>

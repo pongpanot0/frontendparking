@@ -6,6 +6,7 @@ import Link from "next/link";
 import i18n from "../i18n";
 import { useRouter } from "next/router";
 import LocaleSwitcher from "../../components/language-switcher";
+import { getTheme } from "../api/theme";
 const Sidebar = () => {
   const router = useRouter();
 
@@ -29,7 +30,16 @@ const Sidebar = () => {
   /*   localStorage.getItem("lan"); */
   React.useEffect(() => {
     getLan();
+    getColor()
   }, []);
+  const [primary,setPrimary] = React.useState('')
+  
+  const getColor = () =>{
+    const id = localStorage.getItem('company_id')
+    getTheme(id).then((res)=>{
+      setPrimary(res.data.data[0].paimaryButton)
+    })
+  }
   const [selected, setSelected] = React.useState("");
   const onChage = (e) => {
     localStorage.setItem("lan", e.currentKey);
@@ -43,7 +53,7 @@ const Sidebar = () => {
   return (
     <div>
       <Layout>
-        <Navbar isBordered variant="sticky">
+        <Navbar style={{background:primary}}  color="#9d0b0b" isBordered variant="sticky">
           <Navbar.Brand>
             <Navbar.Toggle aria-label="toggle navigation" />
             <AcmeLogo />

@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { getparking } from "../../api/parking";
+import { getparking, getSumdata } from "../../api/parking";
 import {
   Getexportpark,
   GetexportparkSelect,
@@ -23,7 +23,7 @@ import { TextField } from "@mui/material";
 import "moment/locale/th"; // without this line it didn't work
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Grid, Card, Text } from "@nextui-org/react";
-const ParkingTable = () => {
+const SumdataTable = () => {
   moment.locale("th");
   const style = {
     position: "absolute",
@@ -62,7 +62,7 @@ const ParkingTable = () => {
   const [value2, setValue2] = React.useState(moment(new Date()));
   const [value3, setValue3] = React.useState(moment(new Date()));
   const [value4, setValue4] = React.useState(moment(new Date()));
-  console.log(value3);
+
   const handleChange3 = (newValue) => {
     setValue3(newValue);
   };
@@ -78,14 +78,17 @@ const ParkingTable = () => {
 
   const columns = [
     {
-      field: "parking_start",
-      headerName: "parking_start",
+      field: "_id",
+      headerName: "เดือน",
       width: 400,
+      valueFormatter: (params) =>
+        moment(params?.value).format("MMMM YYYY"),
     },
     {
-      field: "parking_end",
-      headerName: "parking_end",
+      field: "totalSaleAmount",
+      headerName: "totalSaleAmount",
       width: 400,
+      
     },
   ];
 
@@ -128,7 +131,7 @@ const ParkingTable = () => {
   };
   const getdata = () => {
     const id = localStorage.getItem("company_id");
-    getparking(id)
+    getSumdata(id)
       .then((res) => {
         setPaymentways(res.data.data);
       })
@@ -144,29 +147,14 @@ const ParkingTable = () => {
       </GridToolbarContainer>
     );
   }
-  const localizedTextsMap = {
-    columnMenuUnsort: "não classificado",
-    columnMenuSortAsc: "Classificar por ordem crescente",
-    columnMenuSortDesc: "Classificar por ordem decrescente",
-    columnMenuFilter: "Filtro",
-    columnMenuHideColumn: "Ocultar",
-    columnMenuShowColumns: "Mostrar colunas",
-  };
-  const [finalClickInfo, setFinalClickInfo] = React.useState(null);
 
-  const handleOnCellClick = (params) => {
-    setFinalClickInfo(params);
-  };
   return (
     <div style={{ height: 400, width: "100%" }}>
       <Button variant="contained" onClick={(e) => getExcel(e)}>
         ออกรายแบบทั้งหมด
       </Button>
       <Button variant="contained" onClick={handleOpen}>
-        ออกรายงานแบบเลือกวัน
-      </Button>
-      <Button variant="contained" onClick={handleOpen2}>
-        ออกรายงานแบบเลือกช่วงเวลา
+        ออกรายงานแบบเดือน
       </Button>
       <Modal
         open={open}
@@ -258,4 +246,4 @@ const ParkingTable = () => {
   );
 };
 
-export default ParkingTable;
+export default SumdataTable;
