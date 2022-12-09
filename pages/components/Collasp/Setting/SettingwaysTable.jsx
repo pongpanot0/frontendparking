@@ -35,7 +35,7 @@ const SettingwaysTable = () => {
 
   const columns = [
     {
-      field: "chanel_payments_id",
+      field: "_id",
       headerName: "chanel_payments_id",
       width: 300,
     },
@@ -52,6 +52,9 @@ const SettingwaysTable = () => {
     {
       field: "chanel_name",
       headerName: "chanel_name",
+      valueGetter: (params) => {
+        return params.getValue(params.id, "chanel").chanel_name;
+      },
       width: 300,
     },
   ];
@@ -62,7 +65,6 @@ const SettingwaysTable = () => {
     const id = localStorage.getItem("company_id");
     getSettingwaysPayments(id)
       .then((res) => {
-        console.log(res.data.data);
         setPaymentways(res.data.data);
       })
       .catch((err) => {
@@ -98,8 +100,9 @@ const SettingwaysTable = () => {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
+        autoHeight
         checkboxSelection
-        getRowId={(paymentsway) => paymentsway.chanel_payments_id}
+        getRowId={(paymentsway) => paymentsway._id}
         components={{
           Toolbar: CustomToolbar,
         }}

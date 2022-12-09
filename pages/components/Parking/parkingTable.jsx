@@ -248,6 +248,7 @@ const ParkingTable = () => {
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        autoHeight
         localeText="th"
         getRowId={(paymentsway) => paymentsway._id}
         components={{

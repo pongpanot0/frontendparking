@@ -233,6 +233,7 @@ const SumdataTable = () => {
       <DataGrid
         rows={paymentsway}
         columns={columns}
+        autoHeight
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection

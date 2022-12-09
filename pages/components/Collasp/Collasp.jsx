@@ -9,10 +9,12 @@ import Thankyou from "../../Helpers/Thankyou";
 import Settingways from "./Setting/Settingways.jsx";
 import SettingwaysTable from "./Setting/SettingwaysTable.jsx";
 import Thememeindex from "../Theme/Thememeindex.jsx";
+import Kiossetting from "./Setting/Kiossetting.jsx";
+import Camerasetting from "./Setting/camerasetting.jsx";
 const Collasp = () => {
   return (
     <Container fluid style={{ width: "100%" }}>
-      <Card css={{ $$cardColor: "$colors$primary", width: "100%" }}>
+      <Card css={{  width: "100%" }}>
         <Card.Body style={{ width: "100%" }}>
           <Row justify="center" align="center" style={{ width: "100%" }}>
             <Grid.Container fluid gap={2} style={{ width: "100%" }}>
@@ -32,6 +34,12 @@ const Collasp = () => {
                   </Collapse>
                   <Collapse title="ตั้งค่าธีมการใช้งาน" arrowIcon={<SunIcon />}>
                     <Thememeindex />
+                  </Collapse>
+                  <Collapse title="ตั้งค่าเครื่องKios" arrowIcon={<SunIcon />}>
+                    <Kiossetting />
+                  </Collapse>
+                  <Collapse title="ตั้งค่ากล้อง" arrowIcon={<SunIcon />}>
+                    <Camerasetting />
                   </Collapse>
                 </Collapse.Group>
               </Grid>

@@ -5,13 +5,13 @@ import Collasp from "../components/Collasp/Collasp";
 const setting = () => {
   return (
     <Container fluid>
-      <Card css={{ $$cardColor: "$colors$primary" }}>
+      < >
         <Card.Body>
           <Row justify="center" align="center">
             <Collasp/>
           </Row>
         </Card.Body>
-      </Card>
+      </>
     </Container>
   );
 };

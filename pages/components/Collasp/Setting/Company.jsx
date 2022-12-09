@@ -19,6 +19,7 @@ import {
 const Company = () => {
   const [company_name, setcompany_name] = React.useState("");
   const [companyPic, setCompanyPic] = React.useState("");
+  const [company_lots,setcompany_lots] = React.useState()
   React.useEffect(() => {
     if (companyPic) {
       return;
@@ -67,6 +68,7 @@ const Company = () => {
         setCompanyPic(
           `${process.env.NEXT_PUBLIC_API_URL}/display/${res.data.data[0].company_pic}`
         );
+        setcompany_lots(res.data.data[0].company_lots);
       })
       .catch((err) => {
         console.log(err);
@@ -94,7 +96,7 @@ const Company = () => {
               <Grid xs={6}>
                 <img src={companyPic} width="500" height="200"></img>
               </Grid>
-              <Grid xs={6}>
+              <Grid direction='column' xs={6}>
                 <Input
                   clearable
                   label="UploadPic"
@@ -102,6 +104,18 @@ const Company = () => {
                   onChange={uploadToClient}
                   placeholder="Name"
                   type={"file"}
+                  disabled={disabled}
+                />
+              
+                <Input
+                  clearable
+                  value={company_lots}
+                  label="company_lots"
+                  width="100%"
+                  placeholder="Name"
+                  onChange={(e) => {
+                    setcompany_lots(e.target.value);
+                  }}
                   disabled={disabled}
                 />
               </Grid>

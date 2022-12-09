@@ -6,24 +6,10 @@ import Area from "../components/Chart/Area";
 import { useTranslation } from "next-i18next";
 import LocaleSwitcher from "../../components/language-switcher";
 import { getTheme } from "../api/theme";
+import Pie from "../components/Chart/Pie";
 
 const Main = () => {
-  React.useEffect(() => {
-    getData();
-  }, []);
-  const [primary, setPrimary] = React.useState("");
-  const [error, setError] = React.useState("");
-  const getData = () => {
-    const id = localStorage.getItem("company_id");
-    getTheme(id)
-      .then((res) => {
-        setPrimary(res.data.data[0].paimaryButton);
-        setError(res.data.data[0].errorButton);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
   return (
     <Container fluid>
       <Card>
@@ -31,12 +17,16 @@ const Main = () => {
           <Row justify="center" align="center">
             <Grid.Container gap={2} justify="center">
               <Grid xs={12} sm={6}>
-                <Line primary={primary} />
+                <Line  />
               </Grid>
-              <Grid xs={0}></Grid>
+              
               <Grid xs={12} sm={6}>
-                <Area primary={primary} />
+                <Area  />
               </Grid>
+              <Grid xs={12} sm={6}>
+                <Pie />
+              </Grid>
+              <Grid xs={12} sm={6}></Grid>
             </Grid.Container>
           </Row>
         </Card.Body>
