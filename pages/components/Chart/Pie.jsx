@@ -24,12 +24,25 @@ const Pie = () => {
   };
 
   const state = {
-    series: [getin, company_lots],
+    series: [getin, company_lots - getin],
     options: {
       chart: {
         type: "pie",
       },
-
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              show: true,
+              
+            }
+          }
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        
+        },
       labels: ["ที่จอดรถใช้งานอยู่", "ที่จอดรถว่าง"],
       responsive: [
         {
