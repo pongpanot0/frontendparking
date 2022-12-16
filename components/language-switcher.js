@@ -11,7 +11,6 @@ export default function LocaleSwitcher() {
   const router = useRouter();
 
   const { locales, locale: activeLocale } = router;
-  const [selected, setSelected] = React.useState("");
   const otherLocales = locales?.filter((locale) => locale);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -21,15 +20,9 @@ export default function LocaleSwitcher() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const onChage = (e) => {
-    localStorage.setItem("lan", e.currentKey);
-    setSelected(e.currentKey);
-  };
+ 
 
-  const getLan = (e) => {
-    const lan = localStorage.getItem("lan");
-    setSelected(lan);
-  };
+
   return (
     <>
       <IconButton

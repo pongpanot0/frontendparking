@@ -1,4 +1,5 @@
 import React from "react";
+import jwt_decode from "jwt-decode";
 import {
   Grid,
   Card,
@@ -20,10 +21,13 @@ const Addsettingpayment = () => {
   const [checked, setchecked] = React.useState(false);
   console.log(payment_min);
   const onSubmit = () => {
-    const company_id = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+   
     createSetting(
       payment_min,
-      company_id,
+      id.company_id,
       payment_free,
       checked,
       payment_hourfist,
@@ -41,7 +45,7 @@ const Addsettingpayment = () => {
         payment_hour: payment_hour,
       }) */
       .then((res) => {
-        console.log(res.data);
+    
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +53,7 @@ const Addsettingpayment = () => {
   };
   const onCheck = (e) => {
     setchecked(!checked);
-    console.log(e);
+
   };
   return (
     <>

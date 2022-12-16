@@ -23,6 +23,7 @@ import { TextField } from "@mui/material";
 import "moment/locale/th"; // without this line it didn't work
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Grid, Card, Text } from "@nextui-org/react";
+import jwt_decode from "jwt-decode";
 const SumdataTable = () => {
   moment.locale("th");
   const style = {
@@ -81,21 +82,21 @@ const SumdataTable = () => {
       field: "_id",
       headerName: "เดือน",
       width: 400,
-      valueFormatter: (params) =>
-        moment(params?.value).format("MMMM YYYY"),
+      valueFormatter: (params) => moment(params?.value).format("MMMM YYYY"),
     },
     {
       field: "totalSaleAmount",
       headerName: "totalSaleAmount",
       width: 400,
-      
     },
   ];
 
   const getByselect = (e) => {
-    const items = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const items = jwt_decode(token);
+
     e.preventDefault();
-    GetexportparkSelect(items, value, value2).then((response) => {
+    GetexportparkSelect(items.company_id, value, value2).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -105,22 +106,27 @@ const SumdataTable = () => {
     });
   };
   const getByselectTime = (e) => {
-    const items = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const items = jwt_decode(token);
+
     e.preventDefault();
-    GetexportparkSelectTime(items, value3, value4).then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `Room${items}.xlsx`); //or any other extension
-      document.body.appendChild(link);
-      link.click();
-    });
+    GetexportparkSelectTime(items.company_id, value3, value4).then(
+      (response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `Room${items.company_id}.xlsx`); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+      }
+    );
   };
   const getExcel = (e) => {
-    const items = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const items = jwt_decode(token);
+
     e.preventDefault();
-    Getexportpark(items).then((response) => {
-      console.log(response);
+    Getexportpark(items.company_id).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -130,8 +136,10 @@ const SumdataTable = () => {
     });
   };
   const getdata = () => {
-    const id = localStorage.getItem("company_id");
-    getSumdata(id)
+    const token = localStorage.getItem("token");
+    const id = jwt_decode(token);
+    console.log(id.company_id);
+    getSumdata(id.company_id)
       .then((res) => {
         setPaymentways(res.data.data);
       })

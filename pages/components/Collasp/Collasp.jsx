@@ -11,6 +11,7 @@ import SettingwaysTable from "./Setting/SettingwaysTable.jsx";
 import Thememeindex from "../Theme/Thememeindex.jsx";
 import Kiossetting from "./Setting/Kiossetting.jsx";
 import Camerasetting from "./Setting/camerasetting.jsx";
+import Settingqrcode from "./Setting/Settingqrcode.jsx";
 const Collasp = () => {
   return (
     <Container fluid style={{ width: "100%" }}>
@@ -40,6 +41,9 @@ const Collasp = () => {
                   </Collapse>
                   <Collapse title="ตั้งค่ากล้อง" arrowIcon={<SunIcon />}>
                     <Camerasetting />
+                  </Collapse>
+                  <Collapse title="ตั้งค่า QRCODE" arrowIcon={<SunIcon />}>
+                    <Settingqrcode />
                   </Collapse>
                 </Collapse.Group>
               </Grid>

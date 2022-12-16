@@ -18,6 +18,7 @@ import Select from "@mui/material/Select";
 import { createChanel, getChanel } from "../../../api/setting";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
+import jwt_decode from "jwt-decode";
 const Settingways = () => {
   const [chanel_payments_detail, setchanel_payments_detail] =
     React.useState("");
@@ -41,9 +42,12 @@ const Settingways = () => {
   };
   const [age, setAge] = React.useState("");
   const onSubmit = () => {
-    const company_id = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+   
     createChanel(
-      company_id,
+      id.company_id,
       chanel_payments_detail,
       chanel_payments_name,
       chanel_payments_tax,

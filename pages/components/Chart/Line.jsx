@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import moment from "moment";
 import { getCounthLogs } from "../../api/parking";
 import { getTheme } from "../../api/theme";
+import jwt_decode from "jwt-decode";
 const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Line = () => {
@@ -16,14 +17,18 @@ const Line = () => {
     getData();
   }, [primary]);
   const getColor = () => {
-    const id = localStorage.getItem("company_id");
-    getTheme(id).then((res) => {
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+    getTheme(id.company_id).then((res) => {
       setPrimary(res.data.data[0].paimaryButton);
     });
   };
   const getData = () => {
-    const id = localStorage.getItem("company_id");
-    getCounthLogs(id)
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+    getCounthLogs(id.company_id)
       .then((row) => {
         setgetCounth(row.data.data);
       })

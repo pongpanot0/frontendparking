@@ -14,12 +14,15 @@ import {
   getImage,
   settingCompany,
   updateCompany,
+  updatePic,
   uploadImg,
 } from "../../../api/setting";
+import jwt_decode from "jwt-decode";
 const Company = () => {
   const [company_name, setcompany_name] = React.useState("");
   const [companyPic, setCompanyPic] = React.useState("");
-  const [company_lots,setcompany_lots] = React.useState()
+  const [company_lots, setcompany_lots] = React.useState("");
+  const [timeReamain, settimeReamain] = React.useState("");
   React.useEffect(() => {
     if (companyPic) {
       return;
@@ -41,34 +44,56 @@ const Company = () => {
     }
   };
 
-  const Edidata = async () => {
+  const upDatepic = async () => {
     const body = new FormData();
     body.append("photo", image);
-    const company_id = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+   
     axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/upload`,
       data: body,
       headers: { "Content-Type": "multipart/form-data" },
-    }).then((res) => {
-      updateCompany(company_id, company_name, res.data)
-        .then((res) => {
-          getData();
-        })
-        .catch((err) => {
-          console.log(err);
+    })
+      .then((res) => {
+        updatePic(id.company_id, res.data).then((res) => {
+          console.log(res);
         });
-    });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const Edidata = async () => {
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+   
+
+    updateCompany(id.company_id, company_name,company_lots, timeReamain)
+      .then((res) => {
+        console.log(res)
+        getData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const getData = () => {
-    const company_id = localStorage.getItem("company_id");
-    settingCompany(company_id)
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+   
+    settingCompany(id.company_id)
       .then((res) => {
         setcompany_name(res.data.data[0].company_name);
         setCompanyPic(
           `${process.env.NEXT_PUBLIC_API_URL}/display/${res.data.data[0].company_pic}`
         );
         setcompany_lots(res.data.data[0].company_lots);
+        settimeReamain(res.data.data[0].timeReamain);
       })
       .catch((err) => {
         console.log(err);
@@ -96,7 +121,7 @@ const Company = () => {
               <Grid xs={6}>
                 <img src={companyPic} width="500" height="200"></img>
               </Grid>
-              <Grid direction='column' xs={6}>
+              <Grid direction="column" xs={6}>
                 <Input
                   clearable
                   label="UploadPic"
@@ -106,7 +131,7 @@ const Company = () => {
                   type={"file"}
                   disabled={disabled}
                 />
-              
+
                 <Input
                   clearable
                   value={company_lots}
@@ -115,6 +140,17 @@ const Company = () => {
                   placeholder="Name"
                   onChange={(e) => {
                     setcompany_lots(e.target.value);
+                  }}
+                  disabled={disabled}
+                />
+                <Input
+                  clearable
+                  value={timeReamain}
+                  label="timeReamain"
+                  width="100%"
+                  placeholder="Name"
+                  onChange={(e) => {
+                    settimeReamain(e.target.value);
                   }}
                   disabled={disabled}
                 />
@@ -131,7 +167,7 @@ const Company = () => {
                   แก้ไข
                 </Button>
               </Grid>
-              <Grid xs={6}>
+              <Grid xs={6} gap={2}>
                 <Button
                   onPress={(e) => Edidata(e)}
                   color="success"
@@ -141,6 +177,16 @@ const Company = () => {
                   style={{ width: "100%" }}
                 >
                   ยืนยัน
+                </Button>
+                <Button
+                  onPress={(e) => upDatepic(e)}
+                  color="success"
+                  shadow
+                  auto
+                  disabled={disabled}
+                  style={{ width: "100%" }}
+                >
+                  อัพเดทรูปภาพ 
                 </Button>
               </Grid>
             </Grid.Container>

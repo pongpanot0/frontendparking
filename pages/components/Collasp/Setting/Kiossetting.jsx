@@ -11,6 +11,7 @@ import {
   GridToolbarContainer,
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
+import jwt_decode from "jwt-decode";
 import { createkios, getkios } from "../../../api/Kiossetting";
 
 const Kiossetting = () => {
@@ -27,6 +28,11 @@ const Kiossetting = () => {
   };
   const [kios_macaddress, setkios_macaddress] = React.useState("");
   const [kios_name, setkios_name] = React.useState("");
+
+  const [kios_serailNum, setkios_serailNum] = React.useState("");
+  const [kios_ipaddress, setkios_ipaddress] = React.useState("");
+  const [kios_port, setkios_port] = React.useState("");
+  const [kios_usingfleg, setkios_usingfleg] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -51,12 +57,47 @@ const Kiossetting = () => {
       headerName: "company_id",
       width: 500,
     },
+    {
+      field: "kios_ipaddress",
+      headerName: "kios_ipaddress",
+      width: 500,
+    },
+    {
+      field: "kios_name",
+      headerName: "kios_name",
+      width: 500,
+    },
+    {
+      field: "kios_serailNum",
+      headerName: "kios_serailNum",
+      width: 500,
+    },
+    {
+      field: "kios_port",
+      headerName: "kios_port",
+      width: 500,
+    },
+    {
+      field: "kios_usingfleg",
+      headerName: "kios_usingfleg",
+      width: 500,
+    },
   ];
   const [kios, setKios] = React.useState([]);
   const postDate = (e) => {
     e.preventDefault();
-    const id = localStorage.getItem("company_id");
-    createkios(id, kios_macaddress, kios_name)
+    const token = localStorage.getItem("token");
+    const id = jwt_decode(token);
+
+    createkios(
+      id.company_id,
+      kios_macaddress,
+      kios_name,
+      kios_serailNum,
+      kios_ipaddress,
+      kios_port,
+      kios_usingfleg
+    )
       .then((res) => {
         alert(res.data.data.acknowledged);
       })
@@ -65,8 +106,10 @@ const Kiossetting = () => {
       });
   };
   const getdata = () => {
-    const id = localStorage.getItem("company_id");
-    getkios(id)
+    const token = localStorage.getItem("token");
+    const id = jwt_decode(token);
+
+    getkios(id.company_id)
       .then((res) => {
         console.log(res.data.data);
         setKios(res.data.data);
@@ -98,7 +141,7 @@ const Kiossetting = () => {
                 <TextField
                   fullWidth
                   id="outlined-basic"
-                  label="kios_name"
+                  label="setkios_name"
                   variant="outlined"
                   onChange={(e) => {
                     setkios_name(e.target.value);
@@ -108,7 +151,7 @@ const Kiossetting = () => {
               <Grid xs={6}>
                 <TextField
                   id="outlined-basic"
-                  label="KiosMacaddress"
+                  label="setkios_macaddress"
                   variant="outlined"
                   fullWidth
                   onChange={(e) => {
@@ -116,8 +159,51 @@ const Kiossetting = () => {
                   }}
                 />
               </Grid>
-
-              <Grid xs={124}>
+              <Grid xs={6}>
+                <TextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="setkios_serailNum"
+                  variant="outlined"
+                  onChange={(e) => {
+                    setkios_serailNum(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid xs={6}>
+                <TextField
+                  id="outlined-basic"
+                  label="setkios_ipaddress"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(e) => {
+                    setkios_ipaddress(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid xs={6}>
+                <TextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="setkios_port"
+                  variant="outlined"
+                  onChange={(e) => {
+                    setkios_port(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid xs={6}>
+                <TextField
+                  id="outlined-basic"
+                  label="setkios_usingfleg"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(e) => {
+                    setkios_usingfleg(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid xs={12}>
                 <Button onClick={(e) => postDate(e)} fullWidth>
                   ตกลง
                 </Button>

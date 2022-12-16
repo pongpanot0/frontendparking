@@ -20,15 +20,18 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Addsettingpayment from "./Addsettingpayment";
 import { Getsetting } from "../../../api/setting";
-
+import jwt_decode from "jwt-decode";
 const Settingpaymeny = () => {
   const [setting, setSetting] = React.useState([]);
   React.useEffect(() => {
     getset();
   }, []);
   const getset = () => {
-    const company_id = localStorage.getItem("company_id");
-    Getsetting(company_id)
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+   
+    Getsetting(id.company_id)
       .then((res) => {
         setSetting(res.data.data);
       })

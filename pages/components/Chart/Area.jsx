@@ -3,12 +3,15 @@ import dynamic from "next/dynamic";
 import { getSumdata } from "../../api/parking";
 import moment from "moment";
 import "moment/locale/th";
+import jwt_decode from "jwt-decode";
 import { getTheme } from "../../api/theme";
 const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 const Area = () => {
   const getdata = () => {
-    const id = localStorage.getItem("company_id");
-    getSumdata(id)
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+    getSumdata(id.company_id)
       .then((row) => {
         settotalSaleAmount(row.data.data);
       })
@@ -19,8 +22,10 @@ const Area = () => {
   const [primary, setPrimary] = React.useState("#1976d2");
   const [colors, setColors] = React.useState("#1976d2");
   const getColor = () => {
-    const id = localStorage.getItem("company_id");
-    getTheme(id).then((res) => {
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+    getTheme(id.company_id).then((res) => {
       setPrimary(res.data.data[0].paimaryButton);
       setColors(res.data.data[0]);
     });
@@ -33,7 +38,7 @@ const Area = () => {
     getColor();
     getdata();
   }, [primary, colors]);
-  console.log(primary);
+
   const [totalSaleAmount, settotalSaleAmount] = React.useState([]);
 
   const sumfill = totalSaleAmount.map((row) => row.totalSaleAmount);

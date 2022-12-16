@@ -23,6 +23,7 @@ import { TextField } from "@mui/material";
 import "moment/locale/th"; // without this line it didn't work
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Grid, Card, Text } from "@nextui-org/react";
+import jwt_decode from "jwt-decode";
 const ParkingTable = () => {
   moment.locale("th");
   const style = {
@@ -62,7 +63,7 @@ const ParkingTable = () => {
   const [value2, setValue2] = React.useState(moment(new Date()));
   const [value3, setValue3] = React.useState(moment(new Date()));
   const [value4, setValue4] = React.useState(moment(new Date()));
-  console.log(value3);
+
   const handleChange3 = (newValue) => {
     setValue3(newValue);
   };
@@ -90,9 +91,12 @@ const ParkingTable = () => {
   ];
 
   const getByselect = (e) => {
-    const items = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const items =jwt_decode(token)
+
+   
     e.preventDefault();
-    GetexportparkSelect(items, value, value2).then((response) => {
+    GetexportparkSelect(items.company_id, value, value2).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -102,9 +106,11 @@ const ParkingTable = () => {
     });
   };
   const getByselectTime = (e) => {
-    const items = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const items =jwt_decode(token)
+
     e.preventDefault();
-    GetexportparkSelectTime(items, value3, value4).then((response) => {
+    GetexportparkSelectTime(items.company_id, value3, value4).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -114,10 +120,10 @@ const ParkingTable = () => {
     });
   };
   const getExcel = (e) => {
-    const items = localStorage.getItem("company_id");
+    const token = localStorage.getItem("token");
+    const items =jwt_decode(token)
     e.preventDefault();
-    Getexportpark(items).then((response) => {
-      console.log(response);
+    Getexportpark(items.company_id).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -127,9 +133,14 @@ const ParkingTable = () => {
     });
   };
   const getdata = () => {
-    const id = localStorage.getItem("company_id");
-    getparking(id)
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+    getparking(id.company_id)
       .then((res) => {
+        console.log('====================================');
+        console.log(res.data.data);
+        console.log('====================================');
         setPaymentways(res.data.data);
       })
       .catch((err) => {

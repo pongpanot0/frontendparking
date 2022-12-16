@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { getTheme, postTheme } from "../../api/theme";
 import { Button } from "@mui/material";
-
+import jwt_decode from "jwt-decode";
 const Thememeindex = () => {
   const [primary, setPrimary] = React.useState("");
   const [error, setError] = React.useState("");
@@ -14,17 +14,20 @@ const Thememeindex = () => {
     getData();
   }, []);
   const getData = () => {
-    const id = localStorage.getItem("company_id");
-    getTheme(id).then((res) => {
-      console.log(res.data.data);
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+     
+   
+    getTheme(id.company_id).then((res) => {
       setPrimary(res.data.data[0].paimaryButton);
       setError(res.data.data[0].errorButton);
     });
   };
   const postData = () => {
-    const id = localStorage.getItem("company_id");
-    const user_id = localStorage.getItem("user_id");
-    postTheme(id, primary, error, user_id).then((res) => {
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+
+    postTheme(id.company_id, primary, error, id.user_id).then((res) => {
       console.log(res.data.data);
     });
   };

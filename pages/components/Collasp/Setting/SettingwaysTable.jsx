@@ -15,6 +15,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Settingways from "./Settingways";
+import jwt_decode from "jwt-decode";
 const SettingwaysTable = () => {
   const style = {
     position: "absolute",
@@ -62,8 +63,11 @@ const SettingwaysTable = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const getdata = () => {
-    const id = localStorage.getItem("company_id");
-    getSettingwaysPayments(id)
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    console.log(id.company_id)
+   
+    getSettingwaysPayments(id.company_id)
       .then((res) => {
         setPaymentways(res.data.data);
       })

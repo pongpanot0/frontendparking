@@ -7,14 +7,15 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-
+import jwt_decode from "jwt-decode";
 import Typography from "@mui/material/Typography";
 const Findplate = () => {
   const [lcplate, setlcplate] = React.useState("");
   const [getDetail, setgetDetail] = React.useState([]);
   const getdata = (e) => {
-    const id = localStorage.getItem("company_id");
-    getParkingLike(id, lcplate)
+    const token = localStorage.getItem("token");
+    const id =jwt_decode(token)
+    getParkingLike(id.company_id, lcplate)
       .then((row) => {
         console.log(row.data.data);
         setgetDetail(row.data.data);
