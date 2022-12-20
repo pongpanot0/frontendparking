@@ -1,9 +1,25 @@
 {
-
-    "title":"00",
-
-  "Welcome to React": "DE  **** Welcome to React and react-i18next",
-  "description": {
-    "part2": "DE  **** some description"
-  }
+  "GeneralSetting": "ตั้งค่าทั่วไป",
+  "Dashboard": "Dashboard",
+  "SettingCompany": "ตั้งค่าบริษัท",
+  "SettingTimePayment": "Setting TimePayment",
+  "ServicefeeSetting": "ตั้งค่าช่องทางการชำระเงิน",
+  "Servicefee": "ค่าบริการ",
+  "Checkin": "เวลาเข้า",
+  "Checkout": "เวลาออก",
+  "Licenseplate": "ป้ายทะเบียน",
+  "ThemeSetting": "ตั้งค่าธีม",
+  "OK": "ตกลง",
+  "Cancel": "ยกเลิก",
+  "Success": "สำเร็จ",
+  "CheckInCheckOutReport": "รายงานรถเข้า-ออก",
+  "CarattheparkinglotReport": "รายงานรถในลานจอด",
+  "IncomeReport": "รายงานรายรับ",
+  "shiftsummaryReport": "รายงานสรุปกะการทำงาน",
+  "CarParkingReport": "รายงานการจอดรถ",
+  "Kiossetting": "ตั้งค่าเครื่องKios",
+  "Camerasetting": "ตั้งค่ากล้องLPR",
+  "Settingqrcode": "ตั้งค่าสลิปจอดรถ",
+  "Summary":"สรุปรับจ่าย",
+  "Parkinghistory":"ประวัติการจอดรถ"
 }

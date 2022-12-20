@@ -13,13 +13,13 @@ import {
 import axios from "axios";
 import { createSetting } from "../../../api/setting";
 const Addsettingpayment = () => {
+
   const [payment_hourfist, setpayment_hourfist] = React.useState("");
   const [payment_minfirst, setpayment_minfirst] = React.useState("");
   const [payment_min, setpayment_min] = React.useState("");
   const [payment_hour, setpayment_hour] = React.useState("");
   const [payment_free, setpayment_free] = React.useState("");
   const [checked, setchecked] = React.useState(false);
-  console.log(payment_min);
   const onSubmit = () => {
     const token = localStorage.getItem("token");
     const id =jwt_decode(token)

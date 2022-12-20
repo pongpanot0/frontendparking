@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Line = () => {
+
   const [getCounth, setgetCounth] = React.useState([]);
   const [primary, setPrimary] = React.useState("#1976d2");
   React.useEffect(() => {
@@ -19,7 +20,6 @@ const Line = () => {
   const getColor = () => {
     const token = localStorage.getItem("token");
     const id =jwt_decode(token)
-    console.log(id.company_id)
     getTheme(id.company_id).then((res) => {
       setPrimary(res.data.data[0].paimaryButton);
     });
@@ -27,7 +27,6 @@ const Line = () => {
   const getData = () => {
     const token = localStorage.getItem("token");
     const id =jwt_decode(token)
-    console.log(id.company_id)
     getCounthLogs(id.company_id)
       .then((row) => {
         setgetCounth(row.data.data);

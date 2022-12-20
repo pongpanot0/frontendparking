@@ -27,6 +27,7 @@ const Settingpaymeny = () => {
     getset();
   }, []);
   const getset = () => {
+
     const token = localStorage.getItem("token");
     const id =jwt_decode(token)
     console.log(id.company_id)

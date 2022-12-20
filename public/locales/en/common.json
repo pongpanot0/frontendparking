@@ -1,7 +1,22 @@
 {
-  "title": "Title",
-  "Welcome to React": "Welcome to React and react-i18next",
-  "description": {
-    "part2": "some description"
-  }
+  "GeneralSetting": "General Setting",
+  "Dashboard": "Dashboard",
+  "SettingCompany": "SettingCompany",
+  "SettingTimePayment": "Setting TimePayment",
+  "ServicefeeSetting": "Service fee Setting",
+  "Servicefee" : "Service fee",
+  "Checkin":"Check In",
+  "Checkout":"Check Out",
+  "Licenseplate":"License plate",
+  "ThemeSetting":"Theme Setting",
+  "OK":"OK",
+  "Cancel":"Cancel",
+  "Success": "Success",
+  "CheckInCheckOutReport":"Check In / Check Out  Report",
+  "CarattheparkinglotReport":"Car at the parking lot Report",
+  "IncomeReport":"Income Report",
+  "shiftsummaryReport":"Shift Summary Report",
+  "CarParkingReport":"CarParkingReport",
+  "Summary":"Summary",
+  "Parkinghistory":"Parkinghistory"
 }

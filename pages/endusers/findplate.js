@@ -17,7 +17,6 @@ const Findplate = () => {
     const id =jwt_decode(token)
     getParkingLike(id.company_id, lcplate)
       .then((row) => {
-        console.log(row.data.data);
         setgetDetail(row.data.data);
       })
       .catch((err) => {
@@ -25,7 +24,6 @@ const Findplate = () => {
       });
   };
   const showbill = getDetail.map((row) => {
-    console.log(row);
     return (
       <>
         <Card sx={{ minWidth: 275, width: "100%" }}>
@@ -43,7 +41,7 @@ const Findplate = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button fullWidth>เข้าสู่หน้าชำระเงิน</Button>
+            <Button href={`/pay/${row.parking_uuids}/${row.company_id}`} fullWidth>เข้าสู่หน้าชำระเงิน</Button>
           </CardActions>
         </Card>
       </>
@@ -84,7 +82,7 @@ const Findplate = () => {
       </Grid>
       <Grid xs={4} md={4}></Grid>
       <Grid xs={4} md={4}></Grid>
-      <Grid xs={4} md={4}>
+      <Grid xs={12} md={4}>
         {showbill}
       </Grid>
       <Grid xs={4} md={4}></Grid>

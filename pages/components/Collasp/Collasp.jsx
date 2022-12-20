@@ -7,42 +7,47 @@ import Settingpaymeny from "./Setting/Settingpaymeny.jsx";
 import Company from "./Setting/Company.jsx";
 import Thankyou from "../../Helpers/Thankyou";
 import Settingways from "./Setting/Settingways.jsx";
+import { useTranslation } from "next-i18next";
 import SettingwaysTable from "./Setting/SettingwaysTable.jsx";
 import Thememeindex from "../Theme/Thememeindex.jsx";
 import Kiossetting from "./Setting/Kiossetting.jsx";
 import Camerasetting from "./Setting/camerasetting.jsx";
 import Settingqrcode from "./Setting/Settingqrcode.jsx";
 const Collasp = () => {
+  const { t } = useTranslation("common");
   return (
     <Container fluid style={{ width: "100%" }}>
-      <Card css={{  width: "100%" }}>
+      <Card css={{ width: "100%" }}>
         <Card.Body style={{ width: "100%" }}>
           <Row justify="center" align="center" style={{ width: "100%" }}>
             <Grid.Container fluid gap={2} style={{ width: "100%" }}>
               <Grid style={{ width: "100%" }}>
                 <Collapse.Group shadow>
-                  <Collapse title="CompanyEdit" arrowIcon={<AnchorIcon />}>
+                  <Collapse
+                    title={t("SettingCompany")}
+                    arrowIcon={<AnchorIcon />}
+                  >
                     <Company />
                   </Collapse>
-                  <Collapse title="Setting Payment" arrowIcon={<MoonIcon />}>
+                  <Collapse title={t("Servicefee")} arrowIcon={<MoonIcon />}>
                     <Settingpaymeny />
                   </Collapse>
                   <Collapse
-                    title="ตั้งค่า ช่องทางการชำระเงิน"
+                    title={t("ServicefeeSetting")}
                     arrowIcon={<SunIcon />}
                   >
                     <SettingwaysTable />
                   </Collapse>
-                  <Collapse title="ตั้งค่าธีมการใช้งาน" arrowIcon={<SunIcon />}>
+                  <Collapse title={t("ThemeSetting")} arrowIcon={<SunIcon />}>
                     <Thememeindex />
                   </Collapse>
-                  <Collapse title="ตั้งค่าเครื่องKios" arrowIcon={<SunIcon />}>
+                  <Collapse title={t("Kiossetting")} arrowIcon={<SunIcon />}>
                     <Kiossetting />
                   </Collapse>
-                  <Collapse title="ตั้งค่ากล้อง" arrowIcon={<SunIcon />}>
+                  <Collapse title={t("Camerasetting")} arrowIcon={<SunIcon />}>
                     <Camerasetting />
                   </Collapse>
-                  <Collapse title="ตั้งค่า QRCODE" arrowIcon={<SunIcon />}>
+                  <Collapse title={t("Settingqrcode")} arrowIcon={<SunIcon />}>
                     <Settingqrcode />
                   </Collapse>
                 </Collapse.Group>

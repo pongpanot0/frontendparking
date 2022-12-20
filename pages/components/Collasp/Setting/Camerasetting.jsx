@@ -14,7 +14,10 @@ import {
 import { createkios, getkios } from "../../../api/Kiossetting";
 import { createcamera, getcamera } from "../../../api/camerasetting";
 import jwt_decode from "jwt-decode";
+import { useSession } from "next-auth/react";
 const Camerasetting = () => {
+  const { data: session } = useSession();
+  const token = session.accessToken;
   const style = {
     position: "absolute",
     top: "50%",

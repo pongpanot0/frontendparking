@@ -11,7 +11,10 @@ import jwt_decode from "jwt-decode";
 import Menu from "@mui/material/Menu";
 import Fade from "@mui/material/Fade";
 import MenuItem from "@mui/material/MenuItem";
+import { useTranslation } from "next-i18next";
+import { signOut } from "next-auth/react";
 const Sidebar = () => {
+  const { t } = useTranslation("common");
   const router = useRouter();
 
   const { locales, locale: activeLocale } = router;
@@ -38,10 +41,12 @@ const Sidebar = () => {
   }, []);
   const [primary, setPrimary] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -88,7 +93,7 @@ const Sidebar = () => {
               href="/dashboard/main"
               color="text"
             >
-              Mainboard
+              {t("Dashboard")}
             </Navbar.Link>
             <Navbar.Link
               as={Link}
@@ -96,7 +101,7 @@ const Sidebar = () => {
               href="/dashboard/setting"
               color="text"
             >
-              ตั้งค่าทั่วไป
+              {t("GeneralSetting")}
             </Navbar.Link>
             <Navbar.Link
               as={Link}
@@ -104,7 +109,7 @@ const Sidebar = () => {
               href="/dashboard/qrcodesetting"
               color="text"
             >
-              รายงานการจอดรถ
+              {t("CarParkingReport")}
             </Navbar.Link>
           </Navbar.Content>
           <Navbar.Content>
@@ -114,11 +119,11 @@ const Sidebar = () => {
               color="primary"
               bordered
               id="fade-button"
-              aria-controls={open ? 'fade-menu' : undefined}
+              aria-controls={open ? "fade-menu" : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
+              aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
-              style={{cursor:'pointer'}}
+              style={{ cursor: "pointer" }}
             />
             <Navbar.Item>
               <Menu
@@ -133,7 +138,15 @@ const Sidebar = () => {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem
+                  onClick={() =>
+                    signOut({
+                      callbackUrl: '/login',
+                    })
+                  }
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </Navbar.Item>
             <LocaleSwitcher />

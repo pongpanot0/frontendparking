@@ -5,12 +5,14 @@ import moment from "moment";
 import "moment/locale/th";
 import jwt_decode from "jwt-decode";
 import { getTheme } from "../../api/theme";
+import { useSession } from "next-auth/react";
 const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 const Area = () => {
+
   const getdata = () => {
     const token = localStorage.getItem("token");
-    const id =jwt_decode(token)
-    console.log(id.company_id)
+    const id = jwt_decode(token);
+    console.log(id.company_id);
     getSumdata(id.company_id)
       .then((row) => {
         settotalSaleAmount(row.data.data);
@@ -23,8 +25,8 @@ const Area = () => {
   const [colors, setColors] = React.useState("#1976d2");
   const getColor = () => {
     const token = localStorage.getItem("token");
-    const id =jwt_decode(token)
-    console.log(id.company_id)
+    const id = jwt_decode(token);
+    console.log(id.company_id);
     getTheme(id.company_id).then((res) => {
       setPrimary(res.data.data[0].paimaryButton);
       setColors(res.data.data[0]);
@@ -32,7 +34,7 @@ const Area = () => {
   };
 
   React.useEffect(() => {
-    if (primary !== '#1976d2' && colors !== '#1976d2') {
+    if (primary !== "#1976d2" && colors !== "#1976d2") {
       return;
     }
     getColor();

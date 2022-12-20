@@ -7,7 +7,9 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Box from "@mui/material/Box";
 import SumdataTable from "../components/Parking/SumdataTable";
+import { useTranslation } from "next-i18next";
 const qrcodesetting = () => {
+  const { t } = useTranslation("common");
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -25,9 +27,9 @@ const qrcodesetting = () => {
                     onChange={handleChange}
                     aria-label="lab API tabs example"
                   >
-                    <Tab label="ParkingTable" value="1" />
-                    <Tab label="สรุปรับจ่าย" value="2" />
-              {/*       <Tab label="Item Three" value="3" /> */}
+                    <Tab label={t("Parkinghistory")} value="1" />
+                    <Tab label={t("Summary")} value="2" />
+                    {/*       <Tab label="Item Three" value="3" /> */}
                   </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -37,7 +39,7 @@ const qrcodesetting = () => {
                 <TabPanel value="2">
                   <SumdataTable />
                 </TabPanel>
-               {/*  <TabPanel value="3">Item Three</TabPanel> */}
+                {/*  <TabPanel value="3">Item Three</TabPanel> */}
               </TabContext>
             </Box>
           </Row>

@@ -13,8 +13,11 @@ import {
 } from "@mui/x-data-grid";
 import jwt_decode from "jwt-decode";
 import { createkios, getkios } from "../../../api/Kiossetting";
+import { useSession } from "next-auth/react";
 
 const Kiossetting = () => {
+  const { data: session } = useSession();
+  const token = session.accessToken;
   const style = {
     position: "absolute",
     top: "50%",

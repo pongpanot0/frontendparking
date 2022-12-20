@@ -6,10 +6,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 class MyDocument extends Document {
   static async getStaticProps({ locale }) {
-   
     return {
       props: {
-        ...(await serverSideTranslations(locale, ["common", "footer"])),
+        ...(await serverSideTranslations(locale, ["common"])),
         nextI18NextConfig,
         // Will be passed to the page component as props
       },
@@ -27,7 +26,6 @@ class MyDocument extends Document {
   }
 
   render() {
-
     return (
       <Html lang="en">
         <Head>
@@ -36,9 +34,7 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
-         
-            <Main />
-         
+          <Main />
           <NextScript />
         </body>
       </Html>

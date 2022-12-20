@@ -44,3 +44,25 @@ export const GetexportparkSelectTime = async (
       ),
     },
   });
+
+  export const GetexportSumdata = async (company_id) =>
+  await axios({
+    url: `${process.env.NEXT_PUBLIC_API_URL}/ExportParksumcalculator/${company_id}`, //your url
+    method: "POST",
+    responseType: "blob", // important
+  });
+
+  export const GetexportSumdataSelect = async (
+    company_id,
+    parking_start_mouth,
+    parking_start_mouth_end
+  ) =>
+    await axios({
+      url: `${process.env.NEXT_PUBLIC_API_URL}/ExportParksumcalculatorSelectMouth/${company_id}`, //your url
+      method: "POST",
+      responseType: "blob", //important
+      data: {
+        parking_start_mouth: parking_start_mouth,
+        parking_start_mouth_end: parking_start_mouth_end,
+      },
+    });

@@ -7,9 +7,17 @@ import { useTranslation } from "next-i18next";
 import LocaleSwitcher from "../../components/language-switcher";
 import { getTheme } from "../api/theme";
 import Pie from "../components/Chart/Pie";
+import { useSession } from "next-auth/react";
+import useEffectOnce from "../Helpers/use-effect-once";
 
 const Main = () => {
 
+/*   useEffectOnce(() => {
+    const token = localStorage.setItem('token',session.accessToken)
+  }); */
+ /*  const postToken = () =>{
+    
+  } */
   return (
     <Container fluid>
       <Card>
@@ -17,11 +25,10 @@ const Main = () => {
           <Row justify="center" align="center">
             <Grid.Container gap={2} justify="center">
               <Grid xs={12} sm={6}>
-                <Line  />
+                <Line />
               </Grid>
-              
               <Grid xs={12} sm={6}>
-                <Area  />
+                <Area />
               </Grid>
               <Grid xs={12} sm={6}>
                 <Pie />

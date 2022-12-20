@@ -91,10 +91,10 @@ const ParkingTable = () => {
   ];
 
   const getByselect = (e) => {
+    
     const token = localStorage.getItem("token");
-    const items =jwt_decode(token)
+    const items = jwt_decode(token);
 
-   
     e.preventDefault();
     GetexportparkSelect(items.company_id, value, value2).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -107,21 +107,23 @@ const ParkingTable = () => {
   };
   const getByselectTime = (e) => {
     const token = localStorage.getItem("token");
-    const items =jwt_decode(token)
+    const items = jwt_decode(token);
 
     e.preventDefault();
-    GetexportparkSelectTime(items.company_id, value3, value4).then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `Room${items}.xlsx`); //or any other extension
-      document.body.appendChild(link);
-      link.click();
-    });
+    GetexportparkSelectTime(items.company_id, value3, value4).then(
+      (response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `Room${items}.xlsx`); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+      }
+    );
   };
   const getExcel = (e) => {
     const token = localStorage.getItem("token");
-    const items =jwt_decode(token)
+    const items = jwt_decode(token);
     e.preventDefault();
     Getexportpark(items.company_id).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -134,13 +136,9 @@ const ParkingTable = () => {
   };
   const getdata = () => {
     const token = localStorage.getItem("token");
-    const id =jwt_decode(token)
-    console.log(id.company_id)
+    const id = jwt_decode(token);
     getparking(id.company_id)
       .then((res) => {
-        console.log('====================================');
-        console.log(res.data.data);
-        console.log('====================================');
         setPaymentways(res.data.data);
       })
       .catch((err) => {
@@ -155,19 +153,7 @@ const ParkingTable = () => {
       </GridToolbarContainer>
     );
   }
-  const localizedTextsMap = {
-    columnMenuUnsort: "não classificado",
-    columnMenuSortAsc: "Classificar por ordem crescente",
-    columnMenuSortDesc: "Classificar por ordem decrescente",
-    columnMenuFilter: "Filtro",
-    columnMenuHideColumn: "Ocultar",
-    columnMenuShowColumns: "Mostrar colunas",
-  };
-  const [finalClickInfo, setFinalClickInfo] = React.useState(null);
 
-  const handleOnCellClick = (params) => {
-    setFinalClickInfo(params);
-  };
   return (
     <div style={{ height: 400, width: "100%" }}>
       <Button variant="contained" onClick={(e) => getExcel(e)}>

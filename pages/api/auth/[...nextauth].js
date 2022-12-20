@@ -4,8 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const authOptions = {
   providers: [
     CredentialsProvider({
+      type: "credentials",
       // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: "Credentials",
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
@@ -29,15 +29,22 @@ const authOptions = {
         const user = await res.json();
         // If no error and we have user data, return it
 
-        if (user) {
-          return user;
+        if (user.data == 400) {
+          console.log("1234");
+          return;
         }
-        return null;
+        /*     if (user.data == 200) {
+          return { id: "123", name: "Bank", email: "pongpanot0@gmail.com" };
+        } */
+        return user;
 
         // Return null if user data could not be retrieved
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+  },
   secret: "LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=",
   session: {
     strategy: "jwt",
@@ -53,13 +60,8 @@ const authOptions = {
       }
       return token;
     },
-    async redirect({ url, baseUrl }) {
-      return baseUrl;
-    },
     async session({ session, user, token }) {
-      if (token) {
-        session.accessToken = token;
-      }
+      session.accessToken = token.accessToken;
       return session;
     },
   },

@@ -16,7 +16,6 @@ const Thankyou = () => {
             </div>
             <div style={{ textAlign: "center" }}>
               <Text h2>ทำรายการสำเร็จ</Text>
-            
             </div>
           </Card.Body>
         </Card>
