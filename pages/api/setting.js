@@ -20,11 +20,11 @@ export const createSetting = async (
   });
 
 export const Getsetting = async (id) =>
-  await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getsetting/${id}` );
+  await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getsetting/${id}`);
 
 export const settingCompany = async (company_id) =>
   await axios.get(
-    process.env.NEXT_PUBLIC_API_URL + `/company/get/`+company_id
+    process.env.NEXT_PUBLIC_API_URL + `/company/get/` + company_id
   );
 
 export const createChanel = async (
@@ -46,7 +46,7 @@ export const getChanel = async () =>
   await axios.get(process.env.NEXT_PUBLIC_API_URL + "/getMasterChanel");
 
 export const getSettingwaysPayments = async (id) =>
-  await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getpaymentsways/${id}` );
+  await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getpaymentsways/${id}`);
 
 export const uploadImg = async (value) =>
   await axios.post(process.env.NEXT_PUBLIC_API_URL + "/upload", {
@@ -76,4 +76,8 @@ export const updatePic = async (company_id, company_pic) =>
     {
       company_pic: company_pic,
     }
+  );
+export const getPDF = async (company_id) =>
+  await axios.get(
+    process.env.NEXT_PUBLIC_API_URL + "/displayPDF/" + company_id
   );

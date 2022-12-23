@@ -13,6 +13,9 @@ import Thememeindex from "../Theme/Thememeindex.jsx";
 import Kiossetting from "./Setting/Kiossetting.jsx";
 import Camerasetting from "./Setting/camerasetting.jsx";
 import Settingqrcode from "./Setting/Settingqrcode.jsx";
+import ReactDOMServer from "react-dom/server";
+import { DndProvider } from "react-dnd";
+import {HTML5Backend} from 'react-dnd-html5-backend'
 const Collasp = () => {
   const { t } = useTranslation("common");
   return (
@@ -61,3 +64,13 @@ const Collasp = () => {
 };
 
 export default Collasp;
+
+const html = ReactDOMServer.renderToStaticMarkup(
+  <>
+    <DndProvider backend={HTML5Backend}>
+      <Settingqrcode />
+    </DndProvider>
+  </>
+);
+
+console.log(html.toString());

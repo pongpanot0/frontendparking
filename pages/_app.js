@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "./Helpers/Help.scss";
+import "./Helpers/DragCard.css";
 import { NextUIProvider } from "@nextui-org/react";
 import Sidebar from "./components/Sidebar";
 import { SessionProvider, useSession, getSession } from "next-auth/react";
@@ -10,6 +11,8 @@ import jwt_decode from "jwt-decode";
 import { getTheme } from "./api/theme";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { DndProvider } from "react-dnd";
+import {HTML5Backend} from 'react-dnd-html5-backend'
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const showHeader =
@@ -33,8 +36,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       return;
     } else {
       getSession()
-        .then((res) => {
-          localStorage.setItem("token", res.accessToken);
+        .then( async (res) => {
+       await  localStorage.setItem("token", res.accessToken);
           const token = localStorage.getItem("token");
           const company_id = jwt_decode(token);
           getTheme(company_id.company_id).then(async (res) => {
@@ -63,6 +66,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   });
   return (
     <>
+    <DndProvider backend={HTML5Backend}>
       <NextUIProvider>
         <ThemeProvider theme={theme}>
           <SessionProvider session={session}>
@@ -74,6 +78,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           </SessionProvider>
         </ThemeProvider>
       </NextUIProvider>
+      </DndProvider>
     </>
   );
 }
