@@ -111,6 +111,14 @@ const Sidebar = () => {
             >
               {t("CarParkingReport")}
             </Navbar.Link>
+            <Navbar.Link
+              as={Link}
+              enableCursorHighlight
+              href="/dashboard/shopshow"
+              color="text"
+            >
+             Shop
+            </Navbar.Link>
           </Navbar.Content>
           <Navbar.Content>
             <Avatar

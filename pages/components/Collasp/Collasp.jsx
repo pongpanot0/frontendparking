@@ -15,7 +15,8 @@ import Camerasetting from "./Setting/camerasetting.jsx";
 import Settingqrcode from "./Setting/Settingqrcode.jsx";
 import ReactDOMServer from "react-dom/server";
 import { DndProvider } from "react-dnd";
-import {HTML5Backend} from 'react-dnd-html5-backend'
+import { HTML5Backend } from "react-dnd-html5-backend";
+import SettingEstamp from "./Setting/SettingEstamp.jsx";
 const Collasp = () => {
   const { t } = useTranslation("common");
   return (
@@ -52,6 +53,9 @@ const Collasp = () => {
                   </Collapse>
                   <Collapse title={t("Settingqrcode")} arrowIcon={<SunIcon />}>
                     <Settingqrcode />
+                  </Collapse>
+                  <Collapse title={'SettingEstamp'} arrowIcon={<SunIcon />}>
+                    <SettingEstamp />
                   </Collapse>
                 </Collapse.Group>
               </Grid>

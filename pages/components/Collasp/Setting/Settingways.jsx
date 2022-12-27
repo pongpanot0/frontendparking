@@ -65,7 +65,6 @@ const Settingways = () => {
     setAge(event.target.value);
   };
   const map = chanel_id.map((row) => {
-    console.log(row);
     return <MenuItem value={row.chanel_id}>{row.chanel_name}</MenuItem>;
   });
 
