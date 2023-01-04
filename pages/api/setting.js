@@ -19,8 +19,32 @@ export const createSetting = async (
     payment_hour: payment_hour,
   });
 
+export const EditSetting = async (
+  id,
+  payment_min,
+  payment_free,
+  payment_forward,
+  payment_hourfist,
+  payment_minfirst,
+  payment_hour,
+  payment_id
+) =>
+  await axios.post(process.env.NEXT_PUBLIC_API_URL + `/editsetting`, {
+    id: id,
+    payment_min: payment_min,
+    payment_free: payment_free,
+    payment_forward: payment_forward,
+    payment_hourfist: payment_hourfist,
+    payment_minfirst: payment_minfirst,
+    payment_hour: payment_hour,
+    payment_id: payment_id,
+  });
+
 export const Getsetting = async (id) =>
   await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getsetting/${id}`);
+
+export const Getsettingid = async (id) =>
+  await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getsettingid/${id}`);
 
 export const settingCompany = async (company_id) =>
   await axios.get(
@@ -42,8 +66,25 @@ export const createChanel = async (
     chanel_id: chanel_id,
   });
 
+  export const editChanel = async (
+    id,
+    chanel_payments_detail,
+    chanel_payments_name,
+    chanel_payments_tax,
+    chanel_id
+  ) =>
+    await axios.post(process.env.NEXT_PUBLIC_API_URL + "/editchanel", {
+      id:id,
+      chanel_payments_detail: chanel_payments_detail,
+      chanel_payments_name: chanel_payments_name,
+      chanel_payments_tax: chanel_payments_tax,
+      chanel_id: chanel_id,
+    });
+
 export const getChanel = async () =>
   await axios.get(process.env.NEXT_PUBLIC_API_URL + "/getMasterChanel");
+export const getChanelPaymentsid = async (id) =>
+  await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getpaymentswaysid/${id}`);
 
 export const getSettingwaysPayments = async (id) =>
   await axios.get(process.env.NEXT_PUBLIC_API_URL + `/getpaymentsways/${id}`);

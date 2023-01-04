@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 
 import { createShop, Editshop, getShopdetail } from "../../../../../api/shop";
 import jwt_decode from "jwt-decode";
-const Shopinsertfrm = ({ chooseMessage, onClose, shopid }) => {
+const Shopinsertfrm = ({ chooseMessage, onClose }) => {
   const [shopname, setShopname] = React.useState("");
   const [shopdetail, setShopdetail] = React.useState("");
   const Postdata = () => {

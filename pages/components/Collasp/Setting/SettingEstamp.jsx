@@ -1,5 +1,4 @@
 import React from "react";
-import { getSettingwaysPayments } from "../../../api/setting";
 import {
   DataGrid,
   GridColumnHeaderFilterIconButton,
@@ -12,9 +11,10 @@ import {
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import jwt_decode from "jwt-decode";
-import { getEstamp } from "../../../api/estamp";
+import { deleteestamp, getEstamp } from "../../../api/estamp";
 import { Button } from "@mui/material";
 import InsertEstamp from "./Insertfrm/InsertEstamp";
+import Editestamp from "./Insertfrm/Editestamp";
 const SettingEstamp = () => {
   const style = {
     position: "absolute",
@@ -29,14 +29,23 @@ const SettingEstamp = () => {
   };
 
   const [paymentsway, setPaymentways] = React.useState([]);
+  const [realid, setrealid] = React.useState("");
+
   React.useEffect(() => {
     getdata();
   }, []);
-
+  const [editid, setEditid] = React.useState("");
+  const [checkboxSelection, setCheckboxSelection] = React.useState("");
+  console.log(checkboxSelection);
   const columns = [
     {
       field: "_id",
       headerName: "chanel_payments_id",
+      width: 300,
+    },
+    {
+      field: "estamp_name",
+      headerName: "estamp_name",
       width: 300,
     },
     {
@@ -54,17 +63,47 @@ const SettingEstamp = () => {
       headerName: "expireDate",
       width: 300,
     },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 300,
+      sortable: false,
+      disableClickEventBubbling: true,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          setrealid(params.row.estamp_id);
+          setEditid(params.id);
+          setOpen2(true);
+        };
+
+        return (
+          <Button fullwidth onClick={(e) => onClick()} variant="contained">
+            Edit
+          </Button>
+        );
+      },
+    },
   ];
+  const [open2, setOpen2] = React.useState(false);
+  const handleClose2 = () => setOpen2(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const onDelete = () => {
+    deleteestamp(checkboxSelection)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const getdata = () => {
     const token = localStorage.getItem("token");
     const id = jwt_decode(token);
 
     getEstamp(id.company_id)
       .then((res) => {
-        console.log(res.data);
         setPaymentways(res.data.data);
       })
       .catch((err) => {
@@ -85,6 +124,9 @@ const SettingEstamp = () => {
       <Button auto shadow onClick={handleOpen}>
         Open modal
       </Button>
+      <Button auto shadow onClick={(e) => onDelete(e)}>
+        delte
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -95,6 +137,16 @@ const SettingEstamp = () => {
           <InsertEstamp />
         </Box>
       </Modal>
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Editestamp id={editid} realid={realid} />
+        </Box>
+      </Modal>
       <DataGrid
         rows={paymentsway}
         columns={columns}
@@ -102,6 +154,7 @@ const SettingEstamp = () => {
         rowsPerPageOptions={[5]}
         autoHeight
         checkboxSelection
+        onSelectionModelChange={(itm) => setCheckboxSelection(itm)}
         getRowId={(paymentsway) => paymentsway._id}
         components={{
           Toolbar: CustomToolbar,

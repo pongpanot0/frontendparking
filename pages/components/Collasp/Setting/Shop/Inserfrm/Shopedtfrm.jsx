@@ -15,8 +15,8 @@ const Shopedtfrm = ({ chooseMessage, onClose, shopid }) => {
 
   const getDetail = () => {
     getShopdetail(shopid).then((res) => {
-        setShopname(res.data.data[0].shopname);
-        setShopdetail(res.data.data[0].shopdetail);
+      setShopname(res.data.data[0].shopname);
+      setShopdetail(res.data.data[0].shopdetail);
     });
   };
   const Postdata = () => {
@@ -25,7 +25,6 @@ const Shopedtfrm = ({ chooseMessage, onClose, shopid }) => {
 
     Editshop(shopid, shopname, shopdetail, id.user_id)
       .then((res) => {
-
         chooseMessage();
         onClose();
       })

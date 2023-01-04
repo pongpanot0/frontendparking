@@ -21,17 +21,22 @@ import Button from "@mui/material/Button";
 import Addsettingpayment from "./Addsettingpayment";
 import { Getsetting } from "../../../api/setting";
 import jwt_decode from "jwt-decode";
+import Editsettingpayment from "./Editsettingpayment";
 const Settingpaymeny = () => {
+  const [editid, setEditid] = React.useState("");
   const [setting, setSetting] = React.useState([]);
+  const [visible2, setVisible2] = React.useState(false);
+  const onEdit = (id) => {
+    console.log(id);
+    setEditid(id);
+    setVisible2(true);
+  };
   React.useEffect(() => {
     getset();
   }, []);
   const getset = () => {
-
     const token = localStorage.getItem("token");
-    const id =jwt_decode(token)
-    console.log(id.company_id)
-   
+    const id = jwt_decode(token);
     Getsetting(id.company_id)
       .then((res) => {
         setSetting(res.data.data);
@@ -42,7 +47,9 @@ const Settingpaymeny = () => {
   };
   const [visible, setVisible] = React.useState(false);
   const handler = () => setVisible(true);
-
+  const closeHandler2 = () => {
+    setVisible2(false);
+  };
   const closeHandler = () => {
     setVisible(false);
   };
@@ -96,7 +103,11 @@ const Settingpaymeny = () => {
           <Forward />
           <TableCell align="right"> {row.ValueCharge} บาท</TableCell>
           <TableCell align="right">
-            <Button variant="contained" color="primary">
+            <Button
+              onClick={(e) => onEdit(row._id)}
+              variant="contained"
+              color="primary"
+            >
               แก้ไข
             </Button>
           </TableCell>
@@ -114,6 +125,17 @@ const Settingpaymeny = () => {
       >
         Add New
       </Button>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible2}
+        onClose={closeHandler2}
+        width="100%"
+      >
+        <Modal.Body>
+          <Editsettingpayment editid={editid} />
+        </Modal.Body>
+      </Modal>
       <Modal
         closeButton
         aria-labelledby="modal-title"

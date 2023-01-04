@@ -1,19 +1,22 @@
 import React from "react";
-import { Container, Card, Row, Text, Grid } from "@nextui-org/react";
-import ShopCrad from "../components/Collasp/Setting/Shop/ShopCrad";
+import { Container, Card, Row } from "@nextui-org/react";
+import Shopdashboard from "../components/Collasp/Setting/Shop/Shopdashboard";
+import Shopgroup from "../components/Collasp/Setting/Shop/Shopgroup";
 
 const shopshow = () => {
   return (
-    <Container fluid>
-        
-      
+    <div>
+      <Container fluid>
         <Card.Body>
           <Row justify="center" align="center">
-            <ShopCrad />
+           
+              {" "}
+              <Shopdashboard />
+   
           </Row>
         </Card.Body>
-   
-    </Container>
+      </Container>
+    </div>
   );
 };
 

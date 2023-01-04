@@ -16,6 +16,8 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Settingways from "./Settingways";
 import jwt_decode from "jwt-decode";
+import { Stack } from "@mui/system";
+import Editways from "./Editways";
 const SettingwaysTable = () => {
   const style = {
     position: "absolute",
@@ -33,7 +35,7 @@ const SettingwaysTable = () => {
   React.useEffect(() => {
     getdata();
   }, []);
-
+  const [editid, setEditid] = React.useState("");
   const columns = [
     {
       field: "_id",
@@ -58,17 +60,39 @@ const SettingwaysTable = () => {
       },
       width: 300,
     },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 300,
+      sortable: false,
+      disableClickEventBubbling: true,
+
+      renderCell: (params) => {
+        const onClick = (e) => {
+          setEditid(params.row._id);
+          setOpen2(true);
+        };
+
+        return (
+          <Button fullwidth onClick={(e) => onClick()} variant="contained">
+            Edit
+          </Button>
+        );
+      },
+    },
   ];
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleClose2 = () => setOpen2(false);
   const getdata = () => {
     const token = localStorage.getItem("token");
-    const id =jwt_decode(token)
-    console.log(id.company_id)
-   
+      const id = jwt_decode(token);
+    console.log(id)
     getSettingwaysPayments(id.company_id)
       .then((res) => {
+        console.log(res.data.data)
         setPaymentways(res.data.data);
       })
       .catch((err) => {
@@ -97,6 +121,16 @@ const SettingwaysTable = () => {
       >
         <Box sx={style}>
           <Settingways />
+        </Box>
+      </Modal>
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Editways id={editid} />
         </Box>
       </Modal>
       <DataGrid

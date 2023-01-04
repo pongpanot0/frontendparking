@@ -15,6 +15,7 @@ import jwt_decode from "jwt-decode";
 import Paginations from "../../../../Helpers/pagination";
 import DeletePopup from "../../../../Helpers/DeletePopup";
 import Shopedtfrm from "./Inserfrm/Shopedtfrm";
+import CardMedia from "@mui/material/CardMedia";
 const style = {
   position: "absolute",
   top: "50%",
@@ -59,9 +60,8 @@ const ShopCrad = () => {
   const [displayConfirmationModal, setdisplayConfirmationModal] =
     React.useState(false);
   const handleClose2 = () => {
-    
-    setdisplayConfirmationModal(false)
-    setOpen2(false)
+    setdisplayConfirmationModal(false);
+    setOpen2(false);
   };
   const ShowNull = () => {
     if (getshop.length <= 0) {
@@ -76,7 +76,19 @@ const ShopCrad = () => {
         <>
           <Grid item xs={4}>
             <Card sx={{ minWidth: 275 }}>
+              <CardMedia
+                sx={{ height: 140 }}
+                image="https://uploads-ssl.webflow.com/5c14e387dab576fe667689cf/5f76d7cb690e57c164388d32_Artboard%208.png"
+                title="green iguana"
+              />
               <CardContent>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  Word of the Day
+                </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                   {row.shopname}
                 </Typography>
