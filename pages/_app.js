@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   }, [paimary, err]);
 
   const getdata = async () => {
-    if (router.pathname === "/login" && router.pathname === "/pay/[pay][payid]") {
+    if (router.pathname === "/login" && router.pathname === "/pay/[pay]/[payid]") {
       return;
     } else {
       getSession()
