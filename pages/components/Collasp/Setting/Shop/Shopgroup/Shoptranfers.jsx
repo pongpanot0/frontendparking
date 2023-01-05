@@ -24,7 +24,9 @@ const Shoptranfers = ({ oncloce ,onGetdata }) => {
     .filter((item) => Number(item.key))
     .map((item) => item.key);
   const [targetKeys2, setTargetKeys2] = useState(initialTargetKeys2);
+
   const [selectedKeys2, setSelectedKeys2] = useState([]);
+
   useEffectOnce(() => {
     getData();
     getestamp();
@@ -40,13 +42,12 @@ const Shoptranfers = ({ oncloce ,onGetdata }) => {
 
   const [shopgroupname, setshopgroupname] = useState("");
   const [value, setValue] = useState([]);
-
+  console.log(value)
   const Opst = () => {
     const token = localStorage.getItem("token");
     const id = jwt_decode(token);
     createShopgroup(id.company_id, shopgroupname, targetKeys2, value)
       .then((res) => {
-        console.log(res);
         onGetdata(true)
         oncloce();
       })

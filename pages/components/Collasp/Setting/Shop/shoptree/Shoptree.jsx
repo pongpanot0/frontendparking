@@ -7,7 +7,6 @@ import useEffectOnce from "../../../../../Helpers/use-effect-once";
 import { getshopgroup } from "../../../../../api/shop";
 import jwt_decode from "jwt-decode";
 const Shoptree = ({ setgetdata }) => {
-
   useEffectOnce(() => {
     getData();
   });
@@ -15,13 +14,15 @@ const Shoptree = ({ setgetdata }) => {
   const getData = () => {
     const token = localStorage.getItem("token");
     const id = jwt_decode(token);
-    getshopgroup(id.company_id).then((res) => {
-      setGetshop(res.data.data);
-    });
+    getshopgroup(id.company_id)
+      .then((res) => {
+        setGetshop(res.data.data);
+        setgetdata();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  if (setgetdata == true) {
-    getData();
-  }
 
   const tree = getshorp.map((res) => {
     return (
@@ -34,17 +35,15 @@ const Shoptree = ({ setgetdata }) => {
   });
   return (
     <div>
-
-
-    <TreeView
-      aria-label="multi-select"
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-      multiSelect
-      sx={{ height: "100%",width:'100%', flexGrow: 1, overflowY: "auto" }}
-    >
-      {tree}
-    </TreeView>
+      <TreeView
+        aria-label="multi-select"
+        defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultExpandIcon={<ChevronRightIcon />}
+        multiSelect
+        sx={{ height: "100%", width: "100%", flexGrow: 1, overflowY: "auto" }}
+      >
+        {tree}
+      </TreeView>
     </div>
   );
 };
