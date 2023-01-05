@@ -16,6 +16,7 @@ import Paginations from "../../../../Helpers/pagination";
 import DeletePopup from "../../../../Helpers/DeletePopup";
 import Shopedtfrm from "./Inserfrm/Shopedtfrm";
 import CardMedia from "@mui/material/CardMedia";
+import ShopUser from "./ShopDetail/ShopUser";
 const style = {
   position: "absolute",
   top: "50%",
@@ -42,6 +43,10 @@ const ShopCrad = () => {
     setId(id);
     setOpen2(true);
   };
+  const onView = (id) => {
+    setId(id);
+    setOpen3(true);
+  };
   React.useEffect(() => {
     getData();
   }, []);
@@ -59,6 +64,10 @@ const ShopCrad = () => {
   };
   const [displayConfirmationModal, setdisplayConfirmationModal] =
     React.useState(false);
+  const handleClose3 = () => {
+    setdisplayConfirmationModal(false);
+    setOpen3(false);
+  };
   const handleClose2 = () => {
     setdisplayConfirmationModal(false);
     setOpen2(false);
@@ -95,6 +104,9 @@ const ShopCrad = () => {
                 <Typography variant="body2">{row.shopdetail}</Typography>
               </CardContent>
               <CardActions>
+                <Button onClick={(e) => onView(row._id)} size="small">
+                  ดูรายละเอียด
+                </Button>
                 <Button onClick={(e) => onUpdate(row._id)} size="small">
                   ตั้งค่า
                 </Button>
@@ -113,7 +125,7 @@ const ShopCrad = () => {
 
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  const handleOpen2 = () => setOpen2(true);
+  const [open3, setOpen3] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -148,6 +160,20 @@ const ShopCrad = () => {
         >
           <Box sx={style}>
             <Shopedtfrm
+              chooseMessage={chooseMessage}
+              onClose={handleClose}
+              shopid={id}
+            />
+          </Box>
+        </Modal>
+        <Modal
+          open={open3}
+          onClose={handleClose3}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <ShopUser
               chooseMessage={chooseMessage}
               onClose={handleClose}
               shopid={id}

@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { getEstamp } from "../../../../../api/estamp";
-const Shoptranfers = ({ oncloce ,onGetdata }) => {
+const Shoptranfers = ({ oncloce, chooseMessage }) => {
   const [device, setDevice] = React.useState([]);
   const mockData = device.map((row, i) => ({
     key: row._id,
@@ -42,13 +42,12 @@ const Shoptranfers = ({ oncloce ,onGetdata }) => {
 
   const [shopgroupname, setshopgroupname] = useState("");
   const [value, setValue] = useState([]);
-  console.log(value)
   const Opst = () => {
     const token = localStorage.getItem("token");
     const id = jwt_decode(token);
     createShopgroup(id.company_id, shopgroupname, targetKeys2, value)
       .then((res) => {
-        onGetdata(true)
+        chooseMessage();
         oncloce();
       })
       .catch((err) => {
